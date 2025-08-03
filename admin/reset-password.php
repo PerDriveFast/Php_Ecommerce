@@ -2,33 +2,35 @@
 
 <?php
 $statement = $pdo->prepare("SELECT * FROM users WHERE email=? AND token=?");
-$statement->execute([$_REQUEST['email'], $_REQUEST['token']]);
+$statement->execute([$_REQUEST['email'],$_REQUEST['token']]);
 $total = $statement->rowCount();
-if (!$total) {
-    header('location: ' . ADMIN_URL . 'login.php');
+if(!$total) {
+    header('location: '.ADMIN_URL.'login.php');
     exit;
 }
 ?>
-<?php
-if (isset($_POST['form_rest_password'])) {
-    try {
 
-        if ($_POST['password'] == '' || $_POST['retype_password'] == '') {
+<?php
+if(isset($_POST['form_reset_password'])) {
+    try {
+        
+        if($_POST['password'] == '' || $_POST['retype_password'] == '') {
             throw new Exception("Password can not be empty");
         }
 
-        if ($_POST['password'] != $_POST['retype_password']) {
+        if($_POST['password'] != $_POST['retype_password']) {
             throw new Exception("Passwords do not match");
         }
 
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
         $statement = $pdo->prepare("UPDATE users SET token=?, password=? WHERE email=? AND token=?");
-        $statement->execute(['', $password, $_REQUEST['email'], $_REQUEST['token']]);
+        $statement->execute(['',$password,$_REQUEST['email'],$_REQUEST['token']]);
 
-        header('location: ' . ADMIN_URL . 'login.php?msg=success');
+        header('location: '.ADMIN_URL.'login.php');
         exit;
-    } catch (Exception $e) {
+
+    } catch(Exception $e) {
         $error_message = $e->getMessage();
     }
 }
@@ -40,32 +42,26 @@ if (isset($_POST['form_rest_password'])) {
             <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="card card-primary border-box">
                     <div class="card-header card-header-auth">
-                        <h4 class="text-center">Rest Password</h4>
+                        <h4 class="text-center">Reset Password</h4>
                     </div>
                     <div class="card-body card-body-auth">
                         <?php
-                        if (isset($error_message)) {
-                            //echo $error_message;
-                        ?><script>
-                                alert("<?php echo $error_message; ?>")
-                            </script><?php
-                                    }
-
-                                        ?>
+                        if(isset($error_message)) {
+                            ?><script>alert("<?php echo $error_message; ?>")</script><?php
+                        }
+                        ?>
                         <form method="POST" action="">
-
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
+                                <input type="password" class="form-control" name="password"  placeholder="Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" name="retype_password" placeholder="Retype Password" autocomplete="off">
+                                <input type="password" class="form-control" name="retype_password"  placeholder="Retype Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_rest_password">
+                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_reset_password">
                                     Submit
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>

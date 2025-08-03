@@ -1,6 +1,4 @@
 <?php
-
-
 ob_start();
 session_start();
 
@@ -10,8 +8,6 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +15,7 @@ require '../vendor/autoload.php';
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 
-    <link rel="icon" type="image/png" href="uploads/favicon.png">
+    <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>uploads/favicon.png">
 
     <title>Admin Panel</title>
 
@@ -61,4 +57,4 @@ require '../vendor/autoload.php';
 
 <body>
     <div id="app">
-        <div class="main-wrapper"></div>
+        <div class="main-wrapper">

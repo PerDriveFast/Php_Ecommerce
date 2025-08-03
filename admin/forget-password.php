@@ -1,36 +1,36 @@
 <?php include 'layouts/top.php'; ?>
-<?php
 
+<?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-require '../vendor/autoload.php';
 ?>
 
 <?php
-if (isset($_POST['form_forget_password'])) {
+if(isset($_POST['form_forget_password'])) {
     try {
-        // throw new Exception("Message Here");
-        if ($_POST['email'] == '') {
+
+        if($_POST['email'] == '') {
             throw new Exception("Email can not be empty");
         }
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Email is invalid");
         }
 
-
         $q = $pdo->prepare("SELECT * FROM users WHERE email=? AND role=?");
-        $q->execute([$_POST['email'], 'admin']);
+        $q->execute([$_POST['email'],'admin']);
         $total = $q->rowCount();
-        if (!$total) {
+        if(!$total) {
             throw new Exception("Email is not found");
-        }
+        } 
+
         $token = time();
         $statement = $pdo->prepare("UPDATE users SET token=? WHERE email=?");
-        $statement->execute([$token, $_POST['email']]);
-        $email_message = "Please click the link below to reset your password:";
-        $email_message .= "<a href='" . ADMIN_URL . "reset-password.php?email=" . $_POST['email'] . "&token=" . $token . "'>Reset Password</a>";
+        $statement->execute([$token,$_POST['email']]);
+
+        $email_message = "Please click on the following link in order to reset the password: ";
+        $email_message .= '<a href="'.ADMIN_URL.'reset-password.php?email='.$_POST['email'].'&token='.$token.'">Reset Password</a>';
+
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
@@ -50,8 +50,10 @@ if (isset($_POST['form_forget_password'])) {
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
-        $success_message = "Please check your email and follow the instructions to rest the password.";
-    } catch (Exception $e) {
+
+        $success_message = "Please check your email and follow the instruction to reset the password.";
+
+    } catch(Exception $e) {
         $error_message = $e->getMessage();
     }
 }
@@ -67,27 +69,17 @@ if (isset($_POST['form_forget_password'])) {
                     </div>
                     <div class="card-body card-body-auth">
                         <?php
-                        if (isset($error_message)) {
-                            //echo $error_message;
-                        ?><script>
-                                alert("<?php echo $error_message; ?>")
-                            </script><?php
-                                    }
-                                    if (isset($success_message)) {
-                                        //echo $error_message;
-                                        ?><script>
-                                alert("<?php echo $success_message; ?>")
-                            </script><?php
-                                    }
-
-                                        ?>
-
-
+                        if(isset($error_message)) {
+                            ?><script>alert("<?php echo $error_message; ?>")</script><?php
+                        }
+                        if(isset($success_message)) {
+                            ?><script>alert("<?php echo $success_message; ?>")</script><?php
+                        }
+                        ?>
                         <form method="POST" action="">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autocomplete="off" autofocus>
                             </div>
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_forget_password">
                                     Submit
@@ -96,7 +88,7 @@ if (isset($_POST['form_forget_password'])) {
                             <div class="form-group">
                                 <div>
                                     <a href="<?php echo ADMIN_URL; ?>login.php">
-                                        Back to Login page
+                                        Back to login page
                                     </a>
                                 </div>
                             </div>

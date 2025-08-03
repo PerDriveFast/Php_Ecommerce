@@ -1,74 +1,71 @@
 <?php include 'layouts/top.php'; ?>
 
 <?php
-
-if (isset($_POST['form_update'])) {
+if(isset($_POST['form_update'])) {
     try {
-        //update full_name and email
 
-        if ($_POST['full_name'] == '') {
-            throw new Exception("Full name can not be empty");
+        // Update Name and Email
+        if($_POST['full_name'] == '') {
+            throw new Exception("Full Name can not be empty");
         }
-        if ($_POST['email'] == '') {
+        if($_POST['email'] == '') {
             throw new Exception("Email can not be empty");
         }
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Email is invaild");
+        if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Email is invalid");
         }
+        $statement = $pdo->prepare("UPDATE users SET 
+                                    full_name=?, 
+                                    email=? 
+                                    WHERE id=?");
+        $statement->execute([$_POST['full_name'],$_POST['email'],$_SESSION['admin']['id']]);
 
-        $statement = $pdo->prepare("UPDATE users SET full_name=?,email=? WHERE id=?");
-        $statement->execute([$_POST['full_name'], $_POST['email'], $_SESSION['admin']['id']]);
 
-
-
-        //update password
-
-        if ($_POST['password'] != '' && $_POST['retype_password'] != '') {
-            if ($_POST['password'] != $_POST['retype_password']) {
+        // Update Password
+        if($_POST['password']!='' || $_POST['retype_password']!='') {
+            if($_POST['password'] != $_POST['retype_password']) {
                 throw new Exception("Password does not match");
             } else {
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $statement = $pdo->prepare("UPDATE users SET password=? WHERE id=?");
-
-                $statement->execute([$password, $_SESSION['admin']['id']]);
+                $statement->execute([$password,$_SESSION['admin']['id']]);
             }
         }
 
-
-        //update photo
+        // Update Photo
         $path = $_FILES['photo']['name'];
         $path_tmp = $_FILES['photo']['tmp_name'];
 
-        if ($path != '') {
+        if($path!='') {
             $extension = pathinfo($path, PATHINFO_EXTENSION);
-            $file_name = time() . "." . $extension;
+            $filename = time().".".$extension;
+    
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mine = finfo_file($finfo, $path_tmp);
-
-            if ($mine == 'image/jpeg' || $mine == 'image/png') {
-                if ($_SESSION['admin']['photo'] != '') {
-                    unlink('../uploads/' . $_SESSION['admin']['photo']);
+            $mime = finfo_file($finfo, $path_tmp);
+    
+            if($mime == 'image/jpeg' || $mime == 'image/png') {
+                if($_SESSION['admin']['photo']!='') {
+                    unlink('../uploads/'.$_SESSION['admin']['photo']);
                 }
-                move_uploaded_file($path_tmp, '../uploads/' . $file_name);
+                move_uploaded_file($path_tmp, '../uploads/'.$filename);
                 $statement = $pdo->prepare("UPDATE users SET photo=? WHERE id=?");
-                $statement->execute([$file_name, $_SESSION['admin']['id']]);
-                $_SESSION['admin']['photo'] = $file_name;
+                $statement->execute([$filename,$_SESSION['admin']['id']]);
+                $_SESSION['admin']['photo'] = $filename;
             } else {
                 throw new Exception("Please upload a valid photo");
             }
         }
 
-        $success_message = "Profile data is updated successfully";
+        $success_message = 'Profile data is updated successfully!';
 
         $_SESSION['admin']['full_name'] = $_POST['full_name'];
         $_SESSION['admin']['email'] = $_POST['email'];
-    } catch (Exception $ex) {
-        $error_message = $ex->getMessage();
+
+    } catch(Exception $e) {
+        $error_message = $e->getMessage();
     }
 }
-
 ?>
-
 
 <div class="main-content">
     <section class="section">
@@ -81,29 +78,25 @@ if (isset($_POST['form_update'])) {
                     <div class="card">
                         <div class="card-body">
                             <?php
-                            if (isset($error_message)) {
-                                //echo $error_message;
-                            ?><script>
-                                    alert("<?php echo $error_message; ?>")
-                                </script><?php
-                                        }
-                                        if (isset($success_message)) {
-                                            //echo $success_message;
-                                            ?><script>
-                                    alert("<?php echo $success_message; ?>")
-                                </script><?php
-                                        }
-
-                                            ?>
+                            if(isset($error_message)) {
+                                ?><script>alert("<?php echo $error_message; ?>")</script><?php
+                            }
+                            if(isset($success_message)) {
+                                ?><script>alert("<?php echo $success_message; ?>")</script><?php
+                            }
+                            ?>
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <?php if ($_SESSION['admin']['photo'] == ''): ?>
+
+                                        <?php if($_SESSION['admin']['photo'] == ''): ?>
                                             <img src="<?php echo BASE_URL; ?>uploads/default.png" alt="" class="profile-photo w_100_p">
+
                                         <?php else: ?>
                                             <img src="<?php echo BASE_URL; ?>uploads/<?php echo $_SESSION['admin']['photo']; ?>" alt="" class="profile-photo w_100_p">
 
                                         <?php endif; ?>
+
                                         <input type="file" class="mt_10" name="photo">
                                     </div>
                                     <div class="col-md-9">
@@ -138,18 +131,4 @@ if (isset($_POST['form_update'])) {
     </section>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php include "layouts/footer.php"; ?>
+<?php include 'layouts/footer.php'; ?>

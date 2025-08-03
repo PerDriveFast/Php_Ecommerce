@@ -1,6 +1,6 @@
 <?php
 $dbhost = 'localhost';
-$dbname = 'admin_panel_php';
+$dbname = 'ecommerce_project';
 $dbuser = 'root';
 $dbpass = 'thanhtrung123@#Z';
 try {

@@ -10,11 +10,11 @@
             <a href="" target="_blank" class="btn btn-warning">Front End</a>
         </li>
         <li class="nav-link">
-            Logged in as: <strong><?php echo $_SESSION['admin']['full_name']; ?></strong>
+            Logged in as: <?php echo $_SESSION['admin']['full_name']; ?>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php if ($_SESSION['admin']['photo'] == ''): ?>
+                <?php if($_SESSION['admin']['photo'] == ''): ?>
                     <img alt="image" src="<?php echo BASE_URL; ?>uploads/default.png" class="rounded-circle-custom">
                 <?php else: ?>
                     <img alt="image" src="<?php echo BASE_URL; ?>uploads/<?php echo $_SESSION['admin']['photo']; ?>" class="rounded-circle-custom">

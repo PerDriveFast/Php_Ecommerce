@@ -1,5 +1,5 @@
-<?php include 'layouts/top.php';
-?>
+<?php include 'layouts/top.php'; ?>
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -52,4 +52,5 @@
         </div>
     </section>
 </div>
+
 <?php include 'layouts/footer.php'; ?>
