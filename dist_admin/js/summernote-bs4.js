@@ -25,7 +25,7 @@ var Renderer = /** @class */ (function () {
     Renderer.prototype.render = function ($parent) {
         var $node = $$1(this.markup);
         if (this.options && this.options.contents) {
-            $node.php(this.options.contents);
+            $node.html(this.options.contents);
         }
         if (this.options && this.options.className) {
             $node.addClass(this.options.className);
@@ -96,7 +96,7 @@ var dropdown = renderer.create('<div class="dropdown-menu">', function ($node, o
         var dataOption = (option !== undefined) ? ' data-option="' + option + '"' : '';
         return '<a class="dropdown-item" href="#" ' + (dataValue + dataOption) + '>' + content + '</a>';
     }).join('') : options.items;
-    $node.php(markup);
+    $node.html(markup);
 });
 var dropdownButtonContents = function (contents) {
     return contents;
@@ -107,7 +107,7 @@ var dropdownCheck = renderer.create('<div class="dropdown-menu note-check">', fu
         var content = options.template ? options.template(item) : item;
         return '<a class="dropdown-item" href="#" data-value="' + value + '">' + icon(options.checkClassName) + ' ' + content + '</a>';
     }).join('') : options.items;
-    $node.php(markup);
+    $node.html(markup);
 });
 var palette = renderer.create('<div class="note-color-palette"/>', function ($node, options) {
     var contents = [];
@@ -128,7 +128,7 @@ var palette = renderer.create('<div class="note-color-palette"/>', function ($no
         }
         contents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
     }
-    $node.php(contents.join(''));
+    $node.html(contents.join(''));
     if (options.tooltip) {
         $node.find('.note-color-btn').tooltip({
             container: options.container,
@@ -141,7 +141,7 @@ var dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-
     if (options.fade) {
         $node.addClass('fade');
     }
-    $node.php([
+    $node.html([
         '<div class="modal-dialog">',
         '  <div class="modal-content">',
         (options.title
@@ -172,7 +172,7 @@ var checkbox = renderer.create('<label class="custom-control custom-checkbox"></
     if (options.id) {
         $node.attr('for', options.id);
     }
-    $node.php([
+    $node.html([
         ' <input type="checkbox" class="custom-control-input"' + (options.id ? ' id="' + options.id + '"' : ''),
         (options.checked ? ' checked' : '') + '/>',
         ' <label class="custom-control-label" for="'+ options.id +'">' + (options.text ? options.text : '') + '</label>',
@@ -259,7 +259,7 @@ var ui = {
         };
     },
     removeLayout: function ($note, layoutInfo) {
-        $note.php(layoutInfo.editable.php());
+        $note.html(layoutInfo.editable.html());
         layoutInfo.editor.remove();
         $note.show();
     }
@@ -773,7 +773,7 @@ function isElement(node) {
 }
 /**
  * ex) br, col, embed, hr, img, input, ...
- * @see http://www.w3.org/html/wg/drafts/html/master/syntax.php#void-elements
+ * @see http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
  */
 function isVoid(node) {
     return node && /^BR|^IMG|^HR|^IFRAME|^BUTTON|^INPUT/.test(node.nodeName.toUpperCase());
@@ -1544,7 +1544,7 @@ var isTextarea = makePredByNodeName('TEXTAREA');
  * @param {Boolean} [stripLinebreaks] - default: false
  */
 function value($node, stripLinebreaks) {
-    var val = isTextarea($node[0]) ? $node.val() : $node.php();
+    var val = isTextarea($node[0]) ? $node.val() : $node.html();
     if (stripLinebreaks) {
         return val.replace(/[\n\r]/g, '');
     }
@@ -2378,7 +2378,7 @@ var WrappedRange = /** @class */ (function () {
      * insert html at current cursor
      */
     WrappedRange.prototype.pasteHTML = function (markup) {
-        var contentsContainer = $$1('<div></div>').php(markup)[0];
+        var contentsContainer = $$1('<div></div>').html(markup)[0];
         var childNodes = lists.from(contentsContainer.childNodes);
         var rng = this.wrapBodyInlineWithPara().deleteContents();
         return childNodes.reverse().map(function (childNode) {
@@ -2464,7 +2464,7 @@ var WrappedRange = /** @class */ (function () {
  *  * BoundaryPoint: a point of dom tree
  *  * BoundaryPoints: two boundaryPoints corresponding to the start and the end of the Range
  *
- * See to http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.php#Level-2-Range-Position
+ * See to http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
  */
 var range = {
     /**
@@ -2668,13 +2668,13 @@ var History = /** @class */ (function () {
         var rng = range.create(this.editable);
         var emptyBookmark = { s: { path: [], offset: 0 }, e: { path: [], offset: 0 } };
         return {
-            contents: this.$editable.php(),
+            contents: this.$editable.html(),
             bookmark: (rng ? rng.bookmark(this.editable) : emptyBookmark)
         };
     };
     History.prototype.applySnapshot = function (snapshot) {
         if (snapshot.contents !== null) {
-            this.$editable.php(snapshot.contents);
+            this.$editable.html(snapshot.contents);
         }
         if (snapshot.bookmark !== null) {
             range.createFromBookmark(this.editable, snapshot.bookmark).select();
@@ -2687,7 +2687,7 @@ var History = /** @class */ (function () {
     */
     History.prototype.rewind = function () {
         // Create snap shot if not yet recorded
-        if (this.$editable.php() !== this.stack[this.stackOffset].contents) {
+        if (this.$editable.html() !== this.stack[this.stackOffset].contents) {
             this.recordUndo();
         }
         // Return to the first available snapshot.
@@ -2705,7 +2705,7 @@ var History = /** @class */ (function () {
         // Restore stackOffset to its original value.
         this.stackOffset = -1;
         // Clear the editable area.
-        this.$editable.php('');
+        this.$editable.html('');
         // Record our first snapshot (of nothing).
         this.recordUndo();
     };
@@ -2714,7 +2714,7 @@ var History = /** @class */ (function () {
      */
     History.prototype.undo = function () {
         // Create snap shot if not yet recorded
-        if (this.$editable.php() !== this.stack[this.stackOffset].contents) {
+        if (this.$editable.html() !== this.stack[this.stackOffset].contents) {
             this.recordUndo();
         }
         if (this.stackOffset > 0) {
@@ -3451,7 +3451,7 @@ var Table = /** @class */ (function () {
                         var baseCellTr = currentCell.baseCell.parent;
                         var isTopFromRowSpan = (!baseCellTr ? 0 : currentCell.baseCell.closest('tr').rowIndex) <= currentTr[0].rowIndex;
                         if (isTopFromRowSpan) {
-                            var newTd = $$1('<div></div>').append($$1('<td' + tdAttributes + '>' + dom.blank + '</td>').removeAttr('rowspan')).php();
+                            var newTd = $$1('<div></div>').append($$1('<td' + tdAttributes + '>' + dom.blank + '</td>').removeAttr('rowspan')).html();
                             html.append(newTd);
                             break;
                         }
@@ -3992,9 +3992,9 @@ var Editor = /** @class */ (function () {
             _this.context.triggerEvent('paste', event);
         });
         // init content before set event
-        this.$editable.php(dom.php(this.$note) || dom.emptyPara);
+        this.$editable.html(dom.html(this.$note) || dom.emptyPara);
         this.$editable.on(env.inputEventName, func.debounce(function () {
-            _this.context.triggerEvent('change', _this.$editable.php());
+            _this.context.triggerEvent('change', _this.$editable.html());
         }, 100));
         this.$editor.on('focusin', function (event) {
             _this.context.triggerEvent('focusin', event);
@@ -4136,23 +4136,23 @@ var Editor = /** @class */ (function () {
      * undo
      */
     Editor.prototype.undo = function () {
-        this.context.triggerEvent('before.command', this.$editable.php());
+        this.context.triggerEvent('before.command', this.$editable.html());
         this.history.undo();
-        this.context.triggerEvent('change', this.$editable.php());
+        this.context.triggerEvent('change', this.$editable.html());
     };
     /**
      * redo
      */
     Editor.prototype.redo = function () {
-        this.context.triggerEvent('before.command', this.$editable.php());
+        this.context.triggerEvent('before.command', this.$editable.html());
         this.history.redo();
-        this.context.triggerEvent('change', this.$editable.php());
+        this.context.triggerEvent('change', this.$editable.html());
     };
     /**
      * before command
      */
     Editor.prototype.beforeCommand = function () {
-        this.context.triggerEvent('before.command', this.$editable.php());
+        this.context.triggerEvent('before.command', this.$editable.html());
         // keep focus on editable before command execution
         this.focus();
     };
@@ -4163,7 +4163,7 @@ var Editor = /** @class */ (function () {
     Editor.prototype.afterCommand = function (isPreventTrigger) {
         this.history.recordUndo();
         if (!isPreventTrigger) {
-            this.context.triggerEvent('change', this.$editable.php());
+            this.context.triggerEvent('change', this.$editable.html());
         }
     };
     /**
@@ -4443,7 +4443,7 @@ var Editor = /** @class */ (function () {
      * @return {Boolean}
      */
     Editor.prototype.isEmpty = function () {
-        return dom.isEmpty(this.$editable[0]) || dom.emptyPara === this.$editable.php();
+        return dom.isEmpty(this.$editable[0]) || dom.emptyPara === this.$editable.html();
     };
     /**
      * Removes all contents and restores the editable instance to an _emptyPara_.
@@ -4638,7 +4638,7 @@ var CodeView = /** @class */ (function () {
      */
     CodeView.prototype.activate = function () {
         var _this = this;
-        this.$codable.val(dom.php(this.$editable, this.options.prettifyHtml));
+        this.$codable.val(dom.html(this.$editable, this.options.prettifyHtml));
         this.$codable.height(this.$editable.height());
         this.context.invoke('toolbar.updateCodeview', true);
         this.$editor.addClass('codeview');
@@ -4678,12 +4678,12 @@ var CodeView = /** @class */ (function () {
             cmEditor.toTextArea();
         }
         var value = dom.value(this.$codable, this.options.prettifyHtml) || dom.emptyPara;
-        var isChange = this.$editable.php() !== value;
-        this.$editable.php(value);
+        var isChange = this.$editable.html() !== value;
+        this.$editable.html(value);
         this.$editable.height(this.options.height ? this.$codable.height() : 'auto');
         this.$editor.removeClass('codeview');
         if (isChange) {
-            this.context.triggerEvent('change', this.$editable.php(), this.$editable);
+            this.context.triggerEvent('change', this.$editable.html(), this.$editable);
         }
         this.$editable.focus();
         this.context.invoke('toolbar.updateCodeview', false);
@@ -4933,7 +4933,7 @@ var AutoLink = /** @class */ (function () {
         var match = keyword.match(linkPattern);
         if (match && (match[1] || match[2])) {
             var link = match[1] ? keyword : defaultScheme + keyword;
-            var node = $$1('<a />').php(keyword).attr('href', link)[0];
+            var node = $$1('<a />').html(keyword).attr('href', link)[0];
             this.lastWordRange.insertNode(node);
             this.lastWordRange = null;
             this.context.invoke('editor.focus');
@@ -5736,7 +5736,7 @@ var Buttons = /** @class */ (function () {
         if (dim.r > 3 && dim.r < this.options.insertTableMaxSize.row) {
             $unhighlighted.css({ height: dim.r + 1 + 'em' });
         }
-        $dimensionDisplay.php(dim.c + ' x ' + dim.r);
+        $dimensionDisplay.html(dim.c + ' x ' + dim.r);
     };
     return Buttons;
 }());
@@ -5885,7 +5885,7 @@ var LinkDialog = /** @class */ (function () {
                     id: 'sn-checkbox-open-in-new-window',
                     text: this.lang.link.openInNewWindow,
                     checked: true
-                }).render()).php()
+                }).render()).html()
                 : ''
         ].join('');
         var buttonClass = 'btn btn-primary note-btn note-btn-primary note-link-btn';
@@ -6047,7 +6047,7 @@ var LinkPopover = /** @class */ (function () {
         if (rng.isCollapsed() && rng.isOnAnchor()) {
             var anchor = dom.ancestor(rng.sc, dom.isAnchor);
             var href = $$1(anchor).attr('href');
-            this.$popover.find('a').attr('href', href).php(href);
+            this.$popover.find('a').attr('href', href).html(href);
             var pos = dom.posFromPlaceholder(anchor);
             this.$popover.css({
                 display: 'block',
@@ -6339,11 +6339,11 @@ var VideoDialog = /** @class */ (function () {
         var vimMatch = url.match(vimRegExp);
         var dmRegExp = /.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/;
         var dmMatch = url.match(dmRegExp);
-        var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)=*\.php/;
+        var youkuRegExp = /\/\/v\.youku\.com\/v_show\/id_(\w+)=*\.html/;
         var youkuMatch = url.match(youkuRegExp);
         var qqRegExp = /\/\/v\.qq\.com.*?vid=(.+)/;
         var qqMatch = url.match(qqRegExp);
-        var qqRegExp2 = /\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.php\??.*/;
+        var qqRegExp2 = /\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.html\??.*/;
         var qqMatch2 = url.match(qqRegExp2);
         var mp4RegExp = /^.+.(mp4|m4v)$/;
         var mp4Match = url.match(mp4RegExp);
@@ -6399,7 +6399,7 @@ var VideoDialog = /** @class */ (function () {
                 .attr('frameborder', 0)
                 .attr('height', '310')
                 .attr('width', '500')
-                .attr('src', 'http://v.qq.com/iframe/player.php?vid=' + vid + '&amp;auto=0');
+                .attr('src', 'http://v.qq.com/iframe/player.html?vid=' + vid + '&amp;auto=0');
         }
         else if (mp4Match || oggMatch || webmMatch) {
             $video = $$1('<video controls>')
@@ -6513,8 +6513,8 @@ var HelpDialog = /** @class */ (function () {
             $row.append($$1('<label><kbd>' + key + '</kdb></label>').css({
                 'width': 180,
                 'margin-right': 10
-            })).append($$1('<span/>').php(_this.context.memo('help.' + command) || command));
-            return $row.php();
+            })).append($$1('<span/>').html(_this.context.memo('help.' + command) || command));
+            return $row.html();
         }).join('');
     };
     /**
@@ -6694,7 +6694,7 @@ var HintPopover = /** @class */ (function () {
             range.createFromNode(node).collapse().select();
             this.lastWordRange = null;
             this.hide();
-            this.context.triggerEvent('change', this.$editable.php(), this.$editable[0]);
+            this.context.triggerEvent('change', this.$editable.html(), this.$editable[0]);
             this.context.invoke('editor.focus');
         }
     };
@@ -6752,7 +6752,7 @@ var HintPopover = /** @class */ (function () {
         this.searchKeyword(idx, keyword, function (items) {
             items = items || [];
             if (items.length) {
-                $group.php(_this.createItemTemplates(idx, items));
+                $group.html(_this.createItemTemplates(idx, items));
                 _this.show();
             }
         });
@@ -6880,14 +6880,14 @@ var Context = /** @class */ (function () {
         var isActivated = this.invoke('codeview.isActivated');
         if (html === undefined) {
             this.invoke('codeview.sync');
-            return isActivated ? this.layoutInfo.codable.val() : this.layoutInfo.editable.php();
+            return isActivated ? this.layoutInfo.codable.val() : this.layoutInfo.editable.html();
         }
         else {
             if (isActivated) {
                 this.layoutInfo.codable.val(html);
             }
             else {
-                this.layoutInfo.editable.php(html);
+                this.layoutInfo.editable.html(html);
             }
             this.$note.val(html);
             this.triggerEvent('change', html);
