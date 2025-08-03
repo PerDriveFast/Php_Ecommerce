@@ -1,36 +1,75 @@
-<?php
-include "layouts/top.php";
-?>
+<?php include 'layouts/top.php'; ?>
 
 <?php
 
 if (isset($_POST['form_update'])) {
     try {
+        //update full_name and email
+
         if ($_POST['full_name'] == '') {
-            throw new Exception("Full Name can not be empty");
+            throw new Exception("Full name can not be empty");
         }
         if ($_POST['email'] == '') {
             throw new Exception("Email can not be empty");
         }
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Email is invalid");
+            throw new Exception("Email is invaild");
         }
 
-        $statement = $pdo->prepare("Update users SET full_name=?, email=? WHERE id=?");
+        $statement = $pdo->prepare("UPDATE users SET full_name=?,email=? WHERE id=?");
         $statement->execute([$_POST['full_name'], $_POST['email'], $_SESSION['admin']['id']]);
 
-        $success_message = 'Profile data is updated successfully';
 
 
-        // Update session data
+        //update password
+
+        if ($_POST['password'] != '' && $_POST['retype_password'] != '') {
+            if ($_POST['password'] != $_POST['retype_password']) {
+                throw new Exception("Password does not match");
+            } else {
+                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $statement = $pdo->prepare("UPDATE users SET password=? WHERE id=?");
+
+                $statement->execute([$password, $_SESSION['admin']['id']]);
+            }
+        }
+
+
+        //update photo
+        $path = $_FILES['photo']['name'];
+        $path_tmp = $_FILES['photo']['tmp_name'];
+
+        if ($path != '') {
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $file_name = time() . "." . $extension;
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mine = finfo_file($finfo, $path_tmp);
+
+            if ($mine == 'image/jpeg' || $mine == 'image/png') {
+                if ($_SESSION['admin']['photo'] != '') {
+                    unlink('../uploads/' . $_SESSION['admin']['photo']);
+                }
+                move_uploaded_file($path_tmp, '../uploads/' . $file_name);
+                $statement = $pdo->prepare("UPDATE users SET photo=? WHERE id=?");
+                $statement->execute([$file_name, $_SESSION['admin']['id']]);
+                $_SESSION['admin']['photo'] = $file_name;
+            } else {
+                throw new Exception("Please upload a valid photo");
+            }
+        }
+
+        $success_message = "Profile data is updated successfully";
+
         $_SESSION['admin']['full_name'] = $_POST['full_name'];
         $_SESSION['admin']['email'] = $_POST['email'];
-        // $_SESSION['admin']['photo'] = $_FILES['photo']['name'] ?? $_SESSION['admin']['photo'];
-    } catch (Exception $e) {
-        $error_message = $e->getMessage();
+    } catch (Exception $ex) {
+        $error_message = $ex->getMessage();
     }
 }
+
 ?>
+
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -78,7 +117,7 @@ if (isset($_POST['form_update'])) {
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label">Password</label>
-                                            <input type="password" class="form-control" name="new_password">
+                                            <input type="password" class="form-control" name="password">
                                         </div>
                                         <div class="mb-4">
                                             <label class="form-label">Retype Password</label>
