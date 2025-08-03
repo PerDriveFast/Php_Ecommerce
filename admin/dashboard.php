@@ -1,12 +1,5 @@
-<?php include 'header.php'; ?>
+<?php include 'layouts/top.php'; ?>
 
-<?php include 'nav.php'; ?>
-
-<?php include 'sidebar.php'; ?>
-
-
-<?php // This is the main content of the dashboard 
-?>
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -62,4 +55,4 @@
     </section>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'layouts/footer.php'; ?>

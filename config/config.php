@@ -11,9 +11,9 @@ try {
 }
 define("BASE_URL", "http://localhost:3000/");
 
-define("SMPT_HOST", "sandbox.smtp.mailtrap.io");
-define("SMPT_PORT", "2525");
-define("SMPT_USERNAME", "a6d25a0e0a8146");
-define("SMPT_PASSWORD", "bf2187cb80b927");
+define("ADMIN_URL", BASE_URL . "admin/");
 
-//define("ADMIN_URL", BASE_URL . "admin/");
+define("SMTP_HOST", "sandbox.smtp.mailtrap.io");
+define("SMTP_PORT", "2525");
+define("SMTP_USERNAME", "a6d25a0e0a8146");
+define("SMTP_PASSWORD", "bf2187cb80b927");

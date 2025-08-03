@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'layouts/top.php'; ?>
 
 <section class="section">
     <div class="container container-login">
@@ -36,4 +36,4 @@
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
+<?php include 'layouts/footer.php'; ?>
