@@ -12,7 +12,7 @@
  * @copyright 2012 - 2020 Marcus Bointon
  * @copyright 2010 - 2012 Jim Jagielski
  * @copyright 2004 - 2009 Andy Prevost
- * @license https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html GNU Lesser General Public License
+ * @license https://www.gnu.org/licenses/old-licenses/lgpl-2.1.php GNU Lesser General Public License
  * @note This program is distributed in the hope that it will be useful - WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
@@ -48,30 +48,33 @@ use Stevenmaguire\OAuth2\Client\Provider\Microsoft;
 use Greew\OAuth2\Client\Provider\Azure;
 
 if (!isset($_GET['code']) && !isset($_POST['provider'])) {
-    ?>
-<html>
-<body>
-<form method="post">
-    <h1>Select Provider</h1>
-    <input type="radio" name="provider" value="Google" id="providerGoogle">
-    <label for="providerGoogle">Google</label><br>
-    <input type="radio" name="provider" value="Yahoo" id="providerYahoo">
-    <label for="providerYahoo">Yahoo</label><br>
-    <input type="radio" name="provider" value="Microsoft" id="providerMicrosoft">
-    <label for="providerMicrosoft">Microsoft</label><br>
-    <input type="radio" name="provider" value="Azure" id="providerAzure">
-    <label for="providerAzure">Azure</label><br>
-    <h1>Enter id and secret</h1>
-    <p>These details are obtained by setting up an app in your provider's developer console.
-    </p>
-    <p>ClientId: <input type="text" name="clientId"><p>
-    <p>ClientSecret: <input type="text" name="clientSecret"></p>
-    <p>TenantID (only relevant for Azure): <input type="text" name="tenantId"></p>
-    <input type="submit" value="Continue">
-</form>
-</body>
-</html>
-    <?php
+?>
+    <html>
+
+    <body>
+        <form method="post">
+            <h1>Select Provider</h1>
+            <input type="radio" name="provider" value="Google" id="providerGoogle">
+            <label for="providerGoogle">Google</label><br>
+            <input type="radio" name="provider" value="Yahoo" id="providerYahoo">
+            <label for="providerYahoo">Yahoo</label><br>
+            <input type="radio" name="provider" value="Microsoft" id="providerMicrosoft">
+            <label for="providerMicrosoft">Microsoft</label><br>
+            <input type="radio" name="provider" value="Azure" id="providerAzure">
+            <label for="providerAzure">Azure</label><br>
+            <h1>Enter id and secret</h1>
+            <p>These details are obtained by setting up an app in your provider's developer console.
+            </p>
+            <p>ClientId: <input type="text" name="clientId">
+            <p>
+            <p>ClientSecret: <input type="text" name="clientSecret"></p>
+            <p>TenantID (only relevant for Azure): <input type="text" name="tenantId"></p>
+            <input type="submit" value="Continue">
+        </form>
+    </body>
+
+    </html>
+<?php
     exit;
 }
 
