@@ -1,21 +1,10 @@
 <?php include 'layouts/top.php'; ?>
-<?php
-if (isset($_SESSION['admin'])) {
-    header("Location: " . ADMIN_URL . "dashboard.php");
-    exit();
-}
-?>
+
 
 <?php
-if (isset($_POST['form_login'])) {
+if (isset($_POST['form_rest_password'])) {
     try {
-        // throw new Exception("Message Here");
-        if ($_POST['email'] == '') {
-            throw new Exception("Email can not be empty");
-        }
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Email is invalid");
-        }
+
         if ($_POST['password'] == '') {
             throw new Exception("Password can not be empty");
         }
@@ -49,7 +38,7 @@ if (isset($_POST['form_login'])) {
             <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="card card-primary border-box">
                     <div class="card-header card-header-auth">
-                        <h4 class="text-center">Admin Panel Login</h4>
+                        <h4 class="text-center">Rest Password</h4>
                     </div>
                     <div class="card-body card-body-auth">
                         <?php
@@ -62,24 +51,19 @@ if (isset($_POST['form_login'])) {
 
                                         ?>
                         <form method="POST" action="">
-                            <div class="form-group">
-                                <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autocomplete="off" autofocus>
-                            </div>
+
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_login">
-                                    Login
-                                </button>
+                                <input type="password" class="form-control" name="retype-password" placeholder="Retype Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <div>
-                                    <a href="<?php echo ADMIN_URL; ?>forget-password.php">
-                                        Forget Password?
-                                    </a>
-                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_rest_password">
+                                    Submit
+                                </button>
                             </div>
+
                         </form>
                     </div>
                 </div>

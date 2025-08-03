@@ -1,13 +1,15 @@
 <?php include 'layouts/top.php'; ?>
 <?php
-if (isset($_SESSION['admin'])) {
-    header("Location: " . ADMIN_URL . "dashboard.php");
-    exit();
-}
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php';
 ?>
 
 <?php
-if (isset($_POST['form_login'])) {
+if (isset($_POST['form_forget_password'])) {
     try {
         // throw new Exception("Message Here");
         if ($_POST['email'] == '') {
@@ -16,27 +18,37 @@ if (isset($_POST['form_login'])) {
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Email is invalid");
         }
-        if ($_POST['password'] == '') {
-            throw new Exception("Password can not be empty");
-        }
+
 
         $q = $pdo->prepare("SELECT * FROM users WHERE email=? AND role=?");
         $q->execute([$_POST['email'], 'admin']);
         $total = $q->rowCount();
         if (!$total) {
             throw new Exception("Email is not found");
-        } else {
-            $result = $q->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $row) {
-                $password = $row['password'];
-                if (!password_verify($_POST['password'], $password)) {
-                    throw new Exception("Password does not match");
-                }
-            }
         }
-        // admin@gmail.com 1234
-        $_SESSION['admin'] = $row;
-        header('location: ' . ADMIN_URL . 'dashboard.php');
+        $token = time();
+        $email_message = "Please click the link below to reset your password:";
+        $email_message .= "<a href='" . ADMIN_URL . "reset-password.php?email=" . $_POST['email'] . "&token=" . $token . "'>Reset Password</a>";
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USERNAME;
+            $mail->Password = SMTP_PASSWORD;
+            $mail->SMTPSecure = SMTP_ENCRYPTION;
+            $mail->Port = SMTP_PORT;
+            $mail->setFrom(SMTP_FROM);
+            $mail->addAddress($_POST['email']);
+            $mail->isHTML(true);
+            $mail->Subject = 'Reset Password';
+            $mail->Body = $email_message;
+            $mail->send();
+            $success_message = 'Please check your email and follow the steps.';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+        $success_message = "Please check your email and follow the instructions to rest the password.";
     } catch (Exception $e) {
         $error_message = $e->getMessage();
     }
@@ -49,7 +61,7 @@ if (isset($_POST['form_login'])) {
             <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="card card-primary border-box">
                     <div class="card-header card-header-auth">
-                        <h4 class="text-center">Admin Panel Login</h4>
+                        <h4 class="text-center">Forget Password</h4>
                     </div>
                     <div class="card-body card-body-auth">
                         <?php
@@ -59,24 +71,30 @@ if (isset($_POST['form_login'])) {
                                 alert("<?php echo $error_message; ?>")
                             </script><?php
                                     }
+                                    if (isset($success_message)) {
+                                        //echo $error_message;
+                                        ?><script>
+                                alert("<?php echo $success_message; ?>")
+                            </script><?php
+                                    }
 
                                         ?>
+
+
                         <form method="POST" action="">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autocomplete="off" autofocus>
                             </div>
+
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_login">
-                                    Login
+                                <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_forget_password">
+                                    Submit
                                 </button>
                             </div>
                             <div class="form-group">
                                 <div>
-                                    <a href="<?php echo ADMIN_URL; ?>forget-password.php">
-                                        Forget Password?
+                                    <a href="<?php echo ADMIN_URL; ?>login.php">
+                                        Back to Login page
                                     </a>
                                 </div>
                             </div>
