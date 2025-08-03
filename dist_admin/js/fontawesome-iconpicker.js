@@ -828,7 +828,7 @@
                 if (a.length > 0) {
                     a.attr("class", this.options.fullClassFormatter(this.iconpickerValue));
                 } else {
-                    this.component.html(this.getHtml());
+                    this.component.php(this.getHtml());
                 }
             }
         },

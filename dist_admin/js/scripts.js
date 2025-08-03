@@ -260,7 +260,7 @@
                     }).append(
                         $('<a>', {
                             href: $('.navbar-brand').attr('href'),
-                        }).html($('.navbar-brand').html())
+                        }).php($('.navbar-brand').php())
                     ));
                     setTimeout(function() {
                         sidebar_nicescroll = main_sidebar.niceScroll(sidebar_nicescroll_opts);
@@ -395,14 +395,14 @@
                     me.removeClass('btn-danger');
                     me.removeClass('following-btn');
                     me.addClass('btn-primary');
-                    me.html(follow_text);
+                    me.php(follow_text);
 
                     eval(me.data('unfollow-action'));
                 }else{
                     me.removeClass('btn-primary');
                     me.addClass('btn-danger');
                     me.addClass('following-btn');
-                    me.html(unfollow_text);
+                    me.php(unfollow_text);
 
                     eval(me.data('follow-action'));
                 }
@@ -430,11 +430,11 @@
                 $(target).collapse('toggle');
                 $(target).on('shown.bs.collapse', function(e) {
                     e.stopPropagation();
-                    me.html('<i class="fas fa-minus"></i>');
+                    me.php('<i class="fas fa-minus"></i>');
                 });
                 $(target).on('hidden.bs.collapse', function(e) {
                     e.stopPropagation();
-                    me.html('<i class="fas fa-plus"></i>');
+                    me.php('<i class="fas fa-plus"></i>');
                 });
                 return false;
             });
