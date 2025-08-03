@@ -1,31 +1,33 @@
 <?php include 'layouts/top.php'; ?>
 
-
+<?php
+$statement = $pdo->prepare("SELECT * FROM users WHERE email=? AND token=?");
+$statement->execute([$_REQUEST['email'], $_REQUEST['token']]);
+$total = $statement->rowCount();
+if (!$total) {
+    header('location: ' . ADMIN_URL . 'login.php');
+    exit;
+}
+?>
 <?php
 if (isset($_POST['form_rest_password'])) {
     try {
 
-        if ($_POST['password'] == '') {
+        if ($_POST['password'] == '' || $_POST['retype_password'] == '') {
             throw new Exception("Password can not be empty");
         }
 
-        $q = $pdo->prepare("SELECT * FROM users WHERE email=? AND role=?");
-        $q->execute([$_POST['email'], 'admin']);
-        $total = $q->rowCount();
-        if (!$total) {
-            throw new Exception("Email is not found");
-        } else {
-            $result = $q->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $row) {
-                $password = $row['password'];
-                if (!password_verify($_POST['password'], $password)) {
-                    throw new Exception("Password does not match");
-                }
-            }
+        if ($_POST['password'] != $_POST['retype_password']) {
+            throw new Exception("Passwords do not match");
         }
-        // admin@gmail.com 1234
-        $_SESSION['admin'] = $row;
-        header('location: ' . ADMIN_URL . 'dashboard.php');
+
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $statement = $pdo->prepare("UPDATE users SET token=?, password=? WHERE email=? AND token=?");
+        $statement->execute(['', $password, $_REQUEST['email'], $_REQUEST['token']]);
+
+        header('location: ' . ADMIN_URL . 'login.php?msg=success');
+        exit;
     } catch (Exception $e) {
         $error_message = $e->getMessage();
     }
@@ -56,7 +58,7 @@ if (isset($_POST['form_rest_password'])) {
                                 <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" name="retype-password" placeholder="Retype Password" autocomplete="off">
+                                <input type="password" class="form-control" name="retype_password" placeholder="Retype Password" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_rest_password">

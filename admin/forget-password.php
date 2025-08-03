@@ -27,6 +27,8 @@ if (isset($_POST['form_forget_password'])) {
             throw new Exception("Email is not found");
         }
         $token = time();
+        $statement = $pdo->prepare("UPDATE users SET token=? WHERE email=?");
+        $statement->execute([$token, $_POST['email']]);
         $email_message = "Please click the link below to reset your password:";
         $email_message .= "<a href='" . ADMIN_URL . "reset-password.php?email=" . $_POST['email'] . "&token=" . $token . "'>Reset Password</a>";
         $mail = new PHPMailer(true);
