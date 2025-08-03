@@ -1,3 +1,10 @@
+<?php
+
+ob_start();
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
