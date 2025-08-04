@@ -9,5 +9,4 @@
 3/8/2025 Temple Font-End Part 1
 3/8/2025 Temple Font-End Part 2 
 3/8/2025 Temple Font-End Part 2 
-3/8/2025 Temple Font-End Part 3 Toast login logout success and errors
-
+3/8/2025 Temple Font-End Part 3 Toast login logout success and error
