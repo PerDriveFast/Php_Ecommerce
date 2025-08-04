@@ -51,7 +51,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/1.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/1.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -81,7 +81,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/2.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/2.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -112,7 +112,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/3.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/3.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -141,7 +141,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/4.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/4.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -171,7 +171,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/5.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/5.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -200,7 +200,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/6.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/6.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -229,7 +229,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/7.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/7.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -258,7 +258,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/8.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/8.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">
@@ -286,7 +286,7 @@
                                     <div class="product-card">
                                         <div class="product-card-img">
                                             <a class="hover-switch" href="product.php">
-                                                <img class="primary-img" src="dist_font/img/products/bags/8.jpg" alt="">
+                                                <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/8.jpg" alt="">
                                             </a>
 
                                             <div class="product-card-action product-card-action-2">

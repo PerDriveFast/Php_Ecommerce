@@ -132,7 +132,7 @@
 
                                 <div class="minicart-item d-flex">
                                     <div class="mini-img-wrapper">
-                                        <img class="mini-img" src="dist_font/img/products/furniture/1.jpg" alt="img">
+                                        <img class="mini-img" src="<?php echo BASE_URL; ?>dist_font/img/products/furniture/1.jpg" alt="img">
                                     </div>
                                     <div class="product-info">
                                         <h2 class="product-title"><a href="#">Eliot Reversible Sectional</a></h2>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="minicart-item d-flex">
                                     <div class="mini-img-wrapper">
-                                        <img class="mini-img" src="dist_font/img/products/furniture/2.jpg" alt="img">
+                                        <img class="mini-img" src="<?php echo BASE_URL; ?>dist_font/img/products/furniture/2.jpg" alt="img">
                                     </div>
                                     <div class="product-info">
                                         <h2 class="product-title"><a href="#">Eliot Reversible Sectional</a></h2>

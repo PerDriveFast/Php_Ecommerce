@@ -22,7 +22,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-1.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-1.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Decor</span>
                             </a>
@@ -46,7 +46,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-2.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-2.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -70,7 +70,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-3.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-3.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Kitchen</span>
                             </a>
@@ -94,7 +94,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-4.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-4.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -118,7 +118,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-5.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-5.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -142,7 +142,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-6.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-6.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -166,7 +166,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-7.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-7.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -190,7 +190,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-8.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-8.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>
@@ -214,7 +214,7 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="article-card bg-transparent p-0 shadow-none">
                             <a class="article-card-img-wrapper" href="post.php">
-                                <img src="dist_font/img/blog/furniture-9.jpg" alt="img"
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-9.jpg" alt="img"
                                     class="article-card-img rounded">
                                 <span class="article-tag article-tag-absolute rounded">Furniture</span>
                             </a>

@@ -21,7 +21,7 @@
                 <div class="col-lg-9 col-md-12 col-12">
                     <div class="article-rte">
                         <div class="article-img">
-                            <img src="dist_font/img/blog/furniture-9.jpg" alt="img">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-9.jpg" alt="img">
                         </div>
                         <div class="article-meta">
                             <h2 class="article-title">Delivering What Consumers Really Value?</h2>
@@ -67,7 +67,7 @@
                             <div class="comments-area">
                                 <div class="d-flex comments-item">
                                     <div class="comments-img">
-                                        <img src="dist_font/img/people/1.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/people/1.jpg" alt="img">
                                     </div>
                                     <div class="comments-main">
                                         <div class="comments-main-content">
@@ -91,7 +91,7 @@
                                         <div class="comments-replied">
                                             <div class="d-flex comments-item">
                                                 <div class="comments-img">
-                                                    <img src="dist_font/img/people/2.jpg" alt="img">
+                                                    <img src="<?php echo BASE_URL; ?>dist_font/img/people/2.jpg" alt="img">
                                                 </div>
                                                 <div class="comments-main">
                                                     <div class="comments-meta">
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="d-flex comments-item">
                                     <div class="comments-img">
-                                        <img src="dist_font/img/people/3.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/people/3.jpg" alt="img">
                                     </div>
                                     <div class="comments-main">
                                         <div class="comments-main-content">
@@ -209,7 +209,7 @@
                             <div class="filter-related">
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="dist_font/img/blog/furniture-1.jpg" alt="img">
+                                        <img class="related-img" src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-1.jpg" alt="img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">
@@ -227,7 +227,7 @@
                                 </div>
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="dist_font/img/blog/furniture-2.jpg" alt="img">
+                                        <img class="related-img" src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-2.jpg" alt="img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">
@@ -245,7 +245,7 @@
                                 </div>
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="dist_font/img/blog/furniture-3.jpg" alt="img">
+                                        <img class="related-img" src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-3.jpg" alt="img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">
@@ -263,7 +263,7 @@
                                 </div>
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="dist_font/img/blog/furniture-4.jpg" alt="img">
+                                        <img class="related-img" src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-4.jpg" alt="img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">
@@ -281,7 +281,7 @@
                                 </div>
                                 <div class="related-item related-item-article d-flex">
                                     <div class="related-img-wrapper">
-                                        <img class="related-img" src="dist_font/img/blog/furniture-5.jpg" alt="img">
+                                        <img class="related-img" src="<?php echo BASE_URL; ?>dist_font/img/blog/furniture-5.jpg" alt="img">
                                     </div>
                                     <div class="related-product-info">
                                         <h2 class="related-heading text_14">

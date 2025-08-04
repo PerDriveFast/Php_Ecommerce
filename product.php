@@ -33,38 +33,38 @@
                                 "asNavFor": ".img-thumb-slider"
                             }'>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/39.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/39.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/38.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/38.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/37.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/37.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/36.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/36.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/34.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/34.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/30.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/30.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" alt="img">
                                     </a>
                                 </div>
                                 <div class="img-large-wrapper">
-                                    <a href="dist_font/img/products/bags/32.jpg" data-fancybox="gallery">
-                                        <img src="dist_font/img/products/bags/32.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" alt="img">
                                     </a>
                                 </div>
                             </div>
@@ -84,37 +84,37 @@
                             }'>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/39.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/38.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/37.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/36.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/34.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/30.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" alt="img">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="img-thumb-wrapper">
-                                        <img src="dist_font/img/products/bags/32.jpg" alt="img">
+                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" alt="img">
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/1.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/1.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -323,7 +323,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/2.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/2.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -348,7 +348,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/3.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/3.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -373,7 +373,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/4.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/4.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -398,7 +398,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/5.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/5.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -423,7 +423,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/6.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/6.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -448,7 +448,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/7.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/7.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -473,7 +473,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/8.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/8.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">

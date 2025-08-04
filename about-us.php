@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="about-hero-img">
-                            <img src="dist_font/img/about/about-hero.jpg" alt="img">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/about/about-hero.jpg" alt="img">
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             <div class="row g-0 justify-content-center">
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="promotional-item overlay-blue">
-                        <img src="dist_font/img/about/p1.jpg" alt="img">
+                        <img src="<?php echo BASE_URL; ?>dist_font/img/about/p1.jpg" alt="img">
                         <div class="promotional-absolute">
                             <div class="promotional-content text-center">
                                 <h2 class="promo-title">Serve our customers and always deliver the customer service</h2>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="promotional-item overlay-black">
-                        <img src="dist_font/img/about/p2.jpg" alt="img">
+                        <img src="<?php echo BASE_URL; ?>dist_font/img/about/p2.jpg" alt="img">
                         <div class="promotional-absolute">
                             <div class="promotional-content text-center">
                                 <h2 class="promo-title">To be the world’s most eader in automotive business solutions.</h2>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="promotional-item overlay-yellow">
-                        <img src="dist_font/img/about/p3.jpg" alt="img">
+                        <img src="<?php echo BASE_URL; ?>dist_font/img/about/p3.jpg" alt="img">
                         <div class="promotional-absolute">
                             <div class="promotional-content text-center">
                                 <h2 class="promo-title">We value the service we provide and our loyal returning customers </h2>

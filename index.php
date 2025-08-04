@@ -19,8 +19,8 @@
             ]
         }'>
             <div class="slide-item slide-item-bag position-relative">
-                <img class="slide-img d-none d-md-block" src="dist_font/img/slideshow/b1.jpg" alt="slide-1">
-                <img class="slide-img d-md-none" src="dist_font/img/slideshow/b1-m.jpg" alt="slide-1">
+                <img class="slide-img d-none d-md-block" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b1.jpg" alt="slide-1">
+                <img class="slide-img d-md-none" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b1-m.jpg" alt="slide-1">
                 <div class="content-absolute content-slide">
                     <div class="container height-inherit d-flex align-items-center justify-content-end">
                         <div class="content-box slide-content py-4">
@@ -41,8 +41,8 @@
                 </div>
             </div>
             <div class="slide-item position-relative">
-                <img class="slide-img d-none d-md-block" src="dist_font/img/slideshow/b2.jpg" alt="slide-2">
-                <img class="slide-img d-md-none" src="dist_font/img/slideshow/b2-m.jpg" alt="slide-2">
+                <img class="slide-img d-none d-md-block" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b2.jpg" alt="slide-2">
+                <img class="slide-img d-md-none" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b2-m.jpg" alt="slide-2">
                 <div class="content-absolute content-slide">
                     <div class="container height-inherit d-flex align-items-center">
                         <div class="content-box slide-content py-4">
@@ -63,8 +63,8 @@
                 </div>
             </div>
             <div class="slide-item position-relative">
-                <img class="slide-img d-none d-md-block" src="dist_font/img/slideshow/b3.jpg" alt="slide-3">
-                <img class="slide-img d-md-none" src="dist_font/img/slideshow/b3-m.jpg" alt="slide-3">
+                <img class="slide-img d-none d-md-block" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b3.jpg" alt="slide-3">
+                <img class="slide-img d-md-none" src="<?php echo BASE_URL; ?>dist_font/img/slideshow/b3-m.jpg" alt="slide-3">
                 <div class="content-absolute content-slide">
                     <div class="container height-inherit d-flex align-items-center justify-content-end">
                         <div class="content-box slide-content py-4">
@@ -99,7 +99,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-6 col-12">
                         <a class="banner-item position-relative rounded" href="product.php">
-                            <img class="banner-img" src="dist_font/img/banner/bag-1.jpg" alt="banner-1">
+                            <img class="banner-img" src="<?php echo BASE_URL; ?>dist_font/img/banner/bag-1.jpg" alt="banner-1">
                             <div class="content-absolute content-slide">
                                 <div class="container height-inherit d-flex align-items-center">
                                     <div class="content-box banner-content p-4">
@@ -112,7 +112,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
                         <a class="banner-item position-relative rounded" href="product.php">
-                            <img class="banner-img" src="dist_font/img/banner/bag-2.jpg" alt="banner-2">
+                            <img class="banner-img" src="<?php echo BASE_URL; ?>dist_font/img/banner/bag-2.jpg" alt="banner-2">
                             <div class="content-absolute content-slide">
                                 <div class="container height-inherit d-flex align-items-center">
                                     <div class="content-box banner-content p-4">
@@ -141,7 +141,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/1.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/1.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -166,7 +166,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/2.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/2.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -191,7 +191,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/3.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/3.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -216,7 +216,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/4.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/4.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -239,7 +239,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/5.jpg"
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/5.jpg"
                                         alt="product-img">
                                 </a>
 
@@ -265,7 +265,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/6.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/6.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -290,7 +290,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/7.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/7.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -315,7 +315,7 @@
                         <div class="product-card">
                             <div class="product-card-img">
                                 <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="dist_font/img/products/bags/8.jpg" alt="">
+                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/8.jpg" alt="">
                                 </a>
 
                                 <div class="product-card-action product-card-action-2">
@@ -356,7 +356,7 @@
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="article-card bg-transparent p-0 shadow-none">
                         <a class="article-card-img-wrapper" href="post.php">
-                            <img src="dist_font/img/instagram/bag1.jpg" alt="" class="article-card-img rounded">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag1.jpg" alt="" class="article-card-img rounded">
                         </a>
                         <h2 class="article-card-heading heading_18 text-center">
                             <a class="heading_18" href="shop.php">
@@ -368,7 +368,7 @@
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="article-card bg-transparent p-0 shadow-none">
                         <a class="article-card-img-wrapper" href="post.php">
-                            <img src="dist_font/img/instagram/bag2.jpg" alt="" class="article-card-img rounded">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag2.jpg" alt="" class="article-card-img rounded">
                         </a>
                         <h2 class="article-card-heading heading_18 text-center">
                             <a class="heading_18" href="post.php">
@@ -380,7 +380,7 @@
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="article-card bg-transparent p-0 shadow-none">
                         <a class="article-card-img-wrapper" href="post.php">
-                            <img src="dist_font/img/instagram/bag3.jpg" alt="" class="article-card-img rounded">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag3.jpg" alt="" class="article-card-img rounded">
                         </a>
                         <h2 class="article-card-heading heading_18 text-center">
                             <a class="heading_18" href="post.php">
@@ -392,7 +392,7 @@
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="article-card bg-transparent p-0 shadow-none">
                         <a class="article-card-img-wrapper" href="post.php">
-                            <img src="dist_font/img/instagram/bag4.jpg" alt="" class="article-card-img rounded">
+                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag4.jpg" alt="" class="article-card-img rounded">
                         </a>
                         <h2 class="article-card-heading heading_18 text-center">
                             <a class="heading_18" href="post.php">
@@ -439,7 +439,7 @@
                         <div class="article-slick-item">
                             <div class="article-card">
                                 <a class="article-card-img-wrapper" href="post.php">
-                                    <img src="dist_font/img/blog/bag-1.jpg" alt="" class="article-card-img rounded">
+                                    <img src="<?php echo BASE_URL; ?>dist_font/img/blog/bag-1.jpg" alt="" class="article-card-img rounded">
                                 </a>
                                 <p class="article-card-published text_12">30 July 2022</p>
                                 <h2 class="article-card-heading heading_18">
@@ -453,7 +453,7 @@
                         <div class="article-slick-item">
                             <div class="article-card">
                                 <a class="article-card-img-wrapper" href="post.php">
-                                    <img src="dist_font/img/blog/bag-2.jpg" alt="" class="article-card-img rounded">
+                                    <img src="<?php echo BASE_URL; ?>dist_font/img/blog/bag-2.jpg" alt="" class="article-card-img rounded">
                                 </a>
                                 <p class="article-card-published text_12">30 July 2022</p>
                                 <h2 class="article-card-heading heading_18">
@@ -467,7 +467,7 @@
                         <div class="article-slick-item">
                             <div class="article-card">
                                 <a class="article-card-img-wrapper" href="post.php">
-                                    <img src="dist_font/img/blog/bag-3.jpg" alt="" class="article-card-img rounded">
+                                    <img src="<?php echo BASE_URL; ?>dist_font/img/blog/bag-3.jpg" alt="" class="article-card-img rounded">
                                 </a>
                                 <p class="article-card-published text_12">30 July 2022</p>
                                 <h2 class="article-card-heading heading_18">
@@ -483,7 +483,7 @@
                         <div class="article-slick-item">
                             <div class="article-card">
                                 <a class="article-card-img-wrapper" href="post.php">
-                                    <img src="dist_font/img/blog/bag-2.jpg" alt="" class="article-card-img rounded">
+                                    <img src="<?php echo BASE_URL; ?>dist_font/img/blog/bag-2.jpg" alt="" class="article-card-img rounded">
                                 </a>
                                 <p class="article-card-published text_12">30 July 2022</p>
                                 <h2 class="article-card-heading heading_18">
@@ -664,7 +664,7 @@
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="newsletter-image">
-                                <img src="dist_font/img/newsletter/1.jpg" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/newsletter/1.jpg" alt="img">
                             </div>
                         </div>
                     </div>
@@ -683,32 +683,32 @@
                     <div class="scroll-horizontal row align-items-center flex-nowrap">
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/1.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/1.png" alt="img">
                             </a>
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/2.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/2.png" alt="img">
                             </a>
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/3.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/3.png" alt="img">
                             </a>
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/4.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/4.png" alt="img">
                             </a>
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/5.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/5.png" alt="img">
                             </a>
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
                             <a href="index.php" class="brand-logo d-flex align-items-center justify-content-center">
-                                <img src="dist_font/img/brand/6.png" alt="img">
+                                <img src="<?php echo BASE_URL; ?>dist_font/img/brand/6.png" alt="img">
                             </a>
                         </div>
                     </div>
