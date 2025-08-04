@@ -1,5 +1,7 @@
 <?php
 include "layouts/top.php";
+
 unset($_SESSION['admin']);
-header('location: '.ADMIN_URL.'login.php');
+$_SESSION['toast_message'] = "Logout successful!";
+header('location: ' . ADMIN_URL . 'login.php');
 exit;

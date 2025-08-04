@@ -1,41 +1,46 @@
 <?php include 'layouts/top.php'; ?>
 <?php
-if(isset($_SESSION['admin'])) {
-    header('location: '.ADMIN_URL.'dashboard.php');
+if (isset($_SESSION['admin'])) {
+    header('location: ' . ADMIN_URL . 'dashboard.php');
 }
 ?>
 <?php
-if(isset($_POST['form_login'])) {
+if (isset($_POST['form_login'])) {
     try {
-        if($_POST['email'] == '') {
+        if ($_POST['email'] == '') {
             throw new Exception("Email can not be empty");
         }
-        if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Email is invalid");
         }
-        if($_POST['password'] == '') {
+        if ($_POST['password'] == '') {
             throw new Exception("Password can not be empty");
         }
 
-        $q = $pdo->prepare("SELECT * FROM users WHERE email=? AND role=?");
-        $q->execute([$_POST['email'],'admin']);
+        $q = $pdo->prepare("SELECT * FROM admins WHERE email=? AND role=?");
+        $q->execute([$_POST['email'], 'admin']);
         $total = $q->rowCount();
-        if(!$total) {
+        if (!$total) {
             throw new Exception("Email is not found");
-        } 
-        else {
+        } else {
             $result = $q->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $password = $row['password'];
-                if(!password_verify($_POST['password'], $password)) {
+                if (!password_verify($_POST['password'], $password)) {
                     throw new Exception("Password does not match");
                 }
             }
         }
         $_SESSION['admin'] = $row;
-        header('location: '.ADMIN_URL.'dashboard.php');
-    } catch(Exception $e) {
+        // code chỗ này lại 4/8/2025 alert thông báo $_SESSION
+        $_SESSION['success_message'] = "Login successful!";
+        header('location: ' . ADMIN_URL . 'dashboard.php');
+        exit;
+    } catch (Exception $e) {
         $error_message = $e->getMessage();
+        $_SESSION['error_message'] = $error_message;
+        header('location: ' . ADMIN_URL . 'login.php');
+        exit;
     }
 }
 ?>
@@ -49,17 +54,13 @@ if(isset($_POST['form_login'])) {
                         <h4 class="text-center">Admin Panel Login</h4>
                     </div>
                     <div class="card-body card-body-auth">
-                        <?php
-                        if(isset($error_message)) {
-                            ?><script>alert("<?php echo $error_message; ?>")</script><?php
-                        }
-                        ?>
+
                         <form method="POST" action="">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autocomplete="off" autofocus>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password"  placeholder="Password" autocomplete="off">
+                                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-lg w_100_p" name="form_login">
