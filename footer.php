@@ -101,8 +101,74 @@
 
 <!-- all js -->
 <script src="<?php echo BASE_URL; ?>dist_font/js/vendor.js"></script>
+<script src="<?php echo BASE_URL; ?>dist_admin/js/iziToast.min.js"></script>
 <script src="<?php echo BASE_URL; ?>dist_font/js/main.js"></script>
 </div>
+<?php if (isset($error_message)): ?>
+    <script>
+        iziToast.error({
+            message: '<?php echo $error_message; ?>',
+            position: 'topRight',
+            timeout: 4000,
+            color: 'red',
+            icon: 'fa fa-times',
+        });
+    </script>
+<?php endif; ?>
+
+
+<?php if (isset($success_message)): ?>
+    <script>
+        iziToast.success({
+            message: '<?php echo $success_message; ?>',
+            position: 'topRight',
+            timeout: 3000,
+            color: 'green',
+            icon: 'fa fa-check',
+        });
+    </script>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['success_message'])): ?>
+    <script>
+        iziToast.success({
+            message: '<?php echo $_SESSION['success_message']; ?>',
+            position: 'topRight',
+            timeout: 3000,
+            color: 'green',
+            icon: 'fa fa-check',
+        });
+    </script>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
+
+
+<?php if (isset($_SESSION['error_message'])): ?>
+    <script>
+        iziToast.success({
+            message: '<?php echo $_SESSION['error_message']; ?>',
+            position: 'topRight',
+            timeout: 3000,
+            color: 'red',
+            icon: 'fa fa-times',
+        });
+    </script>
+    <?php unset($_SESSION['error_message']); ?>
+<?php endif; ?>
+
+
+<?php if (isset($_SESSION['toast_message'])): ?>
+    <script>
+        iziToast.success({
+            message: '<?php echo addslashes($_SESSION['toast_message']); ?>',
+            position: 'topRight',
+            timeout: 3000,
+            color: 'yellow',
+            icon: 'fa fa-check'
+        });
+    </script>
+    <?php unset($_SESSION['toast_message']); ?>
+<?php endif; ?>
 </body>
 
 </html>

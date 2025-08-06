@@ -174,6 +174,10 @@
     setTimeout (function () {
       $ ('#modal-subscribe').modal ("show")
     }, 3000);
-  })
+  });
+
+  // disable autocomplete for forms
+  // không hiển thị dữ liệu gợi ý khi nhập 
+  $('form').attr('autocomplete', 'off');
 
 })(jQuery);

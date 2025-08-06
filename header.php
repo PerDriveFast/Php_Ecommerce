@@ -80,6 +80,7 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/"
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/vendor.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/spacing.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_admin/css/iziToast.min.css">
 </head>
 
 <body>
@@ -107,7 +108,7 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/"
                             <div class="announcement-meta d-flex align-items-center">
                                 <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL; ?>login.php">
                                     <i class="far fa-user"></i>
-                                    <span>User Login</span>
+                                    <span>Customer Login</span>
                                 </a>
                             </div>
                         </div>
