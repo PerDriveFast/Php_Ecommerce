@@ -4004,3 +4004,30 @@ blockquote {
     width: 100%;
     margin-right: 0;
     margin-bottom: 15px; } }
+
+
+.customer-menu{
+  margin-bottom: 50px;
+}
+    .customer-menu ul{
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .customer-menu ul li {
+      list-style: none;
+      margin-bottom: 20px;
+      margin-left: 15px;
+      display: inline-block;
+   
+    }
+
+    .customer-menu ul li a {
+      background: black;
+     margin-right: 10px;
+     margin-left: 20px;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }

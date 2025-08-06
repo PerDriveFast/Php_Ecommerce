@@ -77,10 +77,10 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/"
             --section-subheading-font-weight: 400;
         }
     </style>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_admin/css/iziToast.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/vendor.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/spacing.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/style.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_admin/css/iziToast.min.css">
 </head>
 
 <body>
