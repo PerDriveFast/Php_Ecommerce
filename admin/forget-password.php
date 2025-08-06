@@ -68,18 +68,8 @@ if (isset($_POST['form_forget_password'])) {
                         <h4 class="text-center">Forget Password</h4>
                     </div>
                     <div class="card-body card-body-auth">
-                        <?php
-                        if (isset($error_message)) {
-                        ?><script>
-                                alert("<?php echo $error_message; ?>")
-                            </script><?php
-                                    }
-                                    if (isset($success_message)) {
-                                        ?><script>
-                                alert("<?php echo $success_message; ?>")
-                            </script><?php
-                                    }
-                                        ?>
+
+
                         <form method="POST" action="">
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" placeholder="Email Address" value="" autocomplete="off" autofocus>

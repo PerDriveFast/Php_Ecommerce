@@ -1,6 +1,12 @@
 <?php include 'layouts/top.php'; ?>
 
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+?>
+<?php
 $statement = $pdo->prepare("SELECT * FROM admins WHERE email=? AND token=?");
 $statement->execute([$_REQUEST['email'], $_REQUEST['token']]);
 $total = $statement->rowCount();
@@ -14,23 +20,49 @@ if (!$total) {
 if (isset($_POST['form_reset_password'])) {
     try {
 
-        if ($_POST['password'] == '' || $_POST['retype_password'] == '') {
-            throw new Exception("Password can not be empty");
+        if ($_POST['email'] == '') {
+            throw new Exception("Email can not be empty");
+        }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Email is invalid");
         }
 
-        if ($_POST['password'] != $_POST['retype_password']) {
-            throw new Exception("Passwords do not match");
+        $q = $pdo->prepare("SELECT * FROM customers WHERE email=? AND status=?");
+        $q->execute([$_POST['email'], 'Active']);
+        $total = $q->rowCount();
+        if (!$total) {
+            throw new Exception("Email is not found");
         }
 
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $token = bin2hex(random_bytes(12));
+        $statement = $pdo->prepare("UPDATE customers SET token=? WHERE email=?");
+        $statement->execute([$token, $_POST['email']]);
 
-        $statement = $pdo->prepare("UPDATE admins SET token=?, password=? WHERE email=? AND token=?");
-        $statement->execute(['', $password, $_REQUEST['email'], $_REQUEST['token']]);
+        $email_message = "Please click on the following link in order to reset the password: <br>";
+        $email_message .= '<a href="' . BASE_URL . 'reset-password.php?email=' . $_POST['email'] . '&token=' . $token . '">Reset Password</a>';
 
-        header('location: ' . ADMIN_URL . 'login.php');
-        exit;
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = SMTP_ENCRYPTION;
+        $mail->Port = SMTP_PORT;
+        $mail->setFrom(SMTP_FROM);
+        $mail->addAddress($_POST['email']);
+        $mail->isHTML(true);
+        $mail->Subject = 'Reset Password';
+        $mail->Body = $email_message;
+        $mail->send();
+        $_SESSION['success_message'] = 'Please check your email and follow the steps.';
+        header('location: ' . BASE_URL . 'forget-password.php');
+        exit();
     } catch (Exception $e) {
         $error_message = $e->getMessage();
+        $_SESSION['error_message'] = $error_message;
+        header('location: ' . BASE_URL . 'forget-password.php');
+        exit();
     }
 }
 ?>
@@ -44,13 +76,7 @@ if (isset($_POST['form_reset_password'])) {
                         <h4 class="text-center">Reset Password</h4>
                     </div>
                     <div class="card-body card-body-auth">
-                        <?php
-                        if (isset($error_message)) {
-                        ?><script>
-                                alert("<?php echo $error_message; ?>")
-                            </script><?php
-                                    }
-                                        ?>
+
                         <form method="POST" action="">
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">

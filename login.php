@@ -1,5 +1,4 @@
 <?php include "header.php"; ?>
-
 <?php
 if (isset($_SESSION['customer'])) {
     header('location: ' . BASE_URL . 'customer-dashboard.php');
