@@ -328,7 +328,7 @@ unlink('uploads/1674955499-small.jpg');
 
 ✅✅✅ Image Resize Function
 
-function image_resize($source,$destination,$new_width=100,$new_height=100) {
+function image_resize($source,$destination,$new_width,$new_height) {
     list($width,$height) = getimagesize($source);
     $newimage = imagecreatetruecolor($new_width,$new_height);
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -347,6 +347,100 @@ function image_resize($source,$destination,$new_width=100,$new_height=100) {
         imagegif($newimage,$destination);
     }
 }
+
+function image_resize_to_square($source, $destination, $final_size) {
+    list($orig_width, $orig_height) = getimagesize($source);
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $source);
+
+    // Step 1: Calculate scaled size to fit inside 400x400
+    $scale = min($final_size / $orig_width, $final_size / $orig_height);
+    $new_width = round($orig_width * $scale);
+    $new_height = round($orig_height * $scale);
+
+    // Step 2: Resize original image
+    $resized_image = imagecreatetruecolor($new_width, $new_height);
+
+    if ($mime == 'image/jpeg') {
+        $src = imagecreatefromjpeg($source);
+    } elseif ($mime == 'image/png') {
+        $src = imagecreatefrompng($source);
+        imagealphablending($resized_image, false);
+        imagesavealpha($resized_image, true);
+    } elseif ($mime == 'image/gif') {
+        $src = imagecreatefromgif($source);
+    } else {
+        throw new Exception("Unsupported image type");
+    }
+
+    imagecopyresampled($resized_image, $src, 0, 0, 0, 0, $new_width, $new_height, $orig_width, $orig_height);
+
+    // Step 3: Create 400x400 canvas and center the resized image
+    $final_image = imagecreatetruecolor($final_size, $final_size);
+    
+    // Optional: Fill with white or transparent background
+    if ($mime == 'image/png') {
+        imagealphablending($final_image, false);
+        imagesavealpha($final_image, true);
+        $transparent = imagecolorallocatealpha($final_image, 0, 0, 0, 127);
+        imagefill($final_image, 0, 0, $transparent);
+    } else {
+        $white = imagecolorallocate($final_image, 255, 255, 255);
+        imagefill($final_image, 0, 0, $white);
+    }
+
+    // Center the resized image
+    $dst_x = round(($final_size - $new_width) / 2);
+    $dst_y = round(($final_size - $new_height) / 2);
+
+    imagecopy($final_image, $resized_image, $dst_x, $dst_y, 0, 0, $new_width, $new_height);
+
+    // Save final image
+    if ($mime == 'image/jpeg') {
+        imagejpeg($final_image, $destination);
+    } elseif ($mime == 'image/png') {
+        imagepng($final_image, $destination);
+    } elseif ($mime == 'image/gif') {
+        imagegif($final_image, $destination);
+    }
+
+    imagedestroy($src);
+    imagedestroy($resized_image);
+    imagedestroy($final_image);
+}
+
+
+
+✅ ✅ ✅ Subscriber Export
+
+$statement = $pdo->prepare("SELECT * FROM subscribers WHERE status=?");
+$statement->execute(['Active']);
+$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+header('Content-Type: text/csv');
+header('Content-Disposition: attachment; filename="subscribers_'.time().'.csv"');
+$output = fopen('php://output', 'w');
+fputcsv($output, ['id','Email']);
+foreach ($result as $row) {
+    fputcsv($output, [$row['id'],$row['email']]);
+}
+fclose($output);
+exit;
+
+
+
+✅ ✅ ✅ Automatic Logout After a Certain time
+
+$sessionTimeout = 60; // 1 minute
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $sessionTimeout) {
+    session_unset();
+    session_destroy();
+    header('location: login.php');
+    exit;
+}
+// Update the last activity time
+$_SESSION['last_activity'] = time();
+
 
 
 ✅ ✅ ✅ JSON Encode and Decode
@@ -668,3 +762,45 @@ if(isset($_REQUEST['p'])) {
 } else {
     echo '<a class="links" href="'.BASE_PATH.'category/'.$_GET['slug'].'/2"> >> </a>';
 }
+
+
+
+
+
+1 = prod 1 = 4
+2 = prod 2 = 2
+3 = prod 3 = 2
+
+$_SESSION['product_id'][1] = 2
+$_prSESSION['oduct_quantity'][1] = 2
+
+$_SESSION['product_id'][2] = 3
+$_SESSION['product_quantity'][2] = 1
+
+id
+order_no
+customer_name
+customer_email
+customer_phone
+customer_address
+payment_method
+order_date
+subtotal
+shipping_cost
+coupon_code
+discount
+total
+status
+
+
+id
+order_id
+order_no
+product_id
+product_name
+product_price
+product_quantity
+
+
+
+F76B6A

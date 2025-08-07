@@ -1,5 +1,5 @@
 :root {
-    --font-common: 'Nunito', sans-serif;
+    --font-common: 'Open Sans', sans-serif;
     --font-size-common: 15px;
     --font-size-common-1: 14px;
 }
@@ -106,6 +106,7 @@ table tr td {
 }
 .main-sidebar .sidebar-menu li a span {
     font-size: var(--font-size-common-1)!important;
+    font-weight: 700;
 }
 .main-sidebar .sidebar-menu li a {
     letter-spacing: normal;

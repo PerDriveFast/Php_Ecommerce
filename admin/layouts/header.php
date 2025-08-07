@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,7 @@ require '../vendor/autoload.php';
 
     <title>Admin Panel</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_admin/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_admin/css/font_awesome_5_free.min.css">
