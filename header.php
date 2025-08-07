@@ -106,10 +106,19 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/"
                     <div class="col-lg-3 d-lg-block d-none">
                         <div class="announcement-meta-wrapper d-flex align-items-center justify-content-end">
                             <div class="announcement-meta d-flex align-items-center">
-                                <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL; ?>login.php">
-                                    <i class="far fa-user"></i>
-                                    <span>Customer Login</span>
-                                </a>
+                                <?php if (!isset($_SESSION['customer'])): ?>
+
+                                    <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL; ?>login.php">
+                                        <i class="far fa-user"></i>
+                                        <span>Customer Login</span>
+                                    </a>
+                                <?php else: ?>
+                                    <a class="announcement-login announcement-text text-white" href="<?php echo BASE_URL; ?>customer-dashboard.php">
+                                        <i class="fas fa-home"></i>
+                                        <span>Customer Dashboard</span>
+                                    </a>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
