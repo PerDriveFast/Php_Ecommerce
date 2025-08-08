@@ -1,3 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['admin'])) {
+    header('Location: ' . ADMIN_URL . 'login.php');
+    exit();
+}
+
+$adminName = $_SESSION['admin']['name'] ?? 'Admin';
+$adminPhoto = $_SESSION['admin']['photo'] ?? '';
+?>
 <div class="navbar-bg"></div>
 <nav class="navbar navbar-expand-lg main-navbar">
     <form class="form-inline mr-auto">
@@ -10,14 +23,14 @@
             <a href="" target="_blank" class="btn btn-warning">Front End</a>
         </li>
         <li class="nav-link">
-            Logged in as: <?php echo $_SESSION['admin']['name']; ?>
+            Logged in as: <?php echo htmlspecialchars($adminName); ?>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php if ($_SESSION['admin']['photo'] == ''): ?>
+                <?php if (empty($adminPhoto)): ?>
                     <img alt="image" src="<?php echo BASE_URL; ?>uploads/default.png" class="rounded-circle-custom">
                 <?php else: ?>
-                    <img alt="image" src="<?php echo BASE_URL; ?>uploads/<?php echo $_SESSION['admin']['photo']; ?>" class="rounded-circle-custom">
+                    <img alt="image" src="<?php echo BASE_URL; ?>uploads/<?php echo htmlspecialchars($adminPhoto); ?>" class="rounded-circle-custom">
                 <?php endif; ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
