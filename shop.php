@@ -372,6 +372,8 @@
                             </div>
                         </div>
 
+                        <!--Product Categories Session  -->
+
 
                         <div class="filter-widget">
                             <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
@@ -387,13 +389,25 @@
                             </div>
                             <div id="filter-collection" class="accordion-collapse collapse show">
                                 <ul class="filter-lists list-unstyled mb-0">
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" />
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            <span class="filter-text">Womens Bag</span>
-                                        </label>
-                                    </li>
+                                    <?php
+                                    $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC ");
+                                    $statement->execute();
+                                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                                    foreach ($result as $row) {
+                                    ?>
+
+                                        <li class="filter-item">
+                                            <label class="filter-label">
+                                                <input type="checkbox" name="category" />
+                                                <span class="filter-checkbox rounded me-2"></span>
+                                                <span class="filter-text"><?php echo $row['name'] ?></span>
+                                            </label>
+                                        </li>
+                                    <?php
+                                    }
+                                    ?>
+
                                     <li class="filter-item">
                                         <label class="filter-label">
                                             <input type="checkbox" />

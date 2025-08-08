@@ -349,61 +349,39 @@
     <div class="section-header text-center mt_100 mb_20">
         <h2 class="section-heading">Shop By Category</h2>
     </div>
-    <div class="blog-page>
-        <div class=" blog-page-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="article-card bg-transparent p-0 shadow-none">
-                        <a class="article-card-img-wrapper" href="post.php">
-                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag1.jpg" alt="" class="article-card-img rounded">
-                        </a>
-                        <h2 class="article-card-heading heading_18 text-center">
-                            <a class="heading_18" href="shop.php">
-                                Women Bag
-                            </a>
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="article-card bg-transparent p-0 shadow-none">
-                        <a class="article-card-img-wrapper" href="post.php">
-                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag2.jpg" alt="" class="article-card-img rounded">
-                        </a>
-                        <h2 class="article-card-heading heading_18 text-center">
-                            <a class="heading_18" href="post.php">
-                                Man Bag
-                            </a>
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="article-card bg-transparent p-0 shadow-none">
-                        <a class="article-card-img-wrapper" href="post.php">
-                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag3.jpg" alt="" class="article-card-img rounded">
-                        </a>
-                        <h2 class="article-card-heading heading_18 text-center">
-                            <a class="heading_18" href="post.php">
-                                Travel Bag
-                            </a>
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="article-card bg-transparent p-0 shadow-none">
-                        <a class="article-card-img-wrapper" href="post.php">
-                            <img src="<?php echo BASE_URL; ?>dist_font/img/instagram/bag4.jpg" alt="" class="article-card-img rounded">
-                        </a>
-                        <h2 class="article-card-heading heading_18 text-center">
-                            <a class="heading_18" href="post.php">
-                                Children Bag
-                            </a>
-                        </h2>
-                    </div>
+    <div class="blog-page">
+        <div class="blog-page-wrapper">
+            <div class="container">
+                <div class="row">
+
+
+                    <?php
+
+                    $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC LIMIT 4");
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="article-card bg-transparent p-0 shadow-none">
+                                <a class="article-card-img-wrapper" href="post.php">
+                                    <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photo'] ?>" alt="" class="article-card-img rounded">
+                                </a>
+                                <h2 class="article-card-heading heading_18 text-center">
+                                    <a class="heading_18" href="shop.php">
+                                        <?php echo $row['name'] ?>
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+
+                    <?php
+
+                    }
+                    ?>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 
