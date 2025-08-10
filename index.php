@@ -137,9 +137,7 @@
                     <h2 class="section-heading">Popular Products</h2>
                 </div>
                 <div class="row">
-
                     <?php
-
                     $statement = $pdo->prepare("SELECT * FROM products ORDER BY total_sale DESC LIMIT 4");
                     $statement->execute();
                     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -149,7 +147,7 @@
                         <div class="col-lg-3 col-md-6 col-6">
                             <div class="product-card">
                                 <div class="product-card-img">
-                                    <a class="hover-switch" href="product.php">
+                                    <a class="hover-switch" href="<?php echo BASE_URL; ?>product.php?slug=<?php echo $row['slug']; ?>">
                                         <img class="primary-img" src="<?php echo BASE_URL; ?>uploads/<?php echo $row['featured_photo']; ?>" alt="img">
                                     </a>
                                     <form action="" method="post" class="product-card-action product-card-action-2">
@@ -166,11 +164,11 @@
 
                                 </div>
                                 <div class="product-card-details text-center">
-                                    <h3 class="product-card-title"><a href="product.php"><?php echo $row['name']; ?></a>
+                                    <h3 class="product-card-title"><a href="<?php echo BASE_URL; ?>product.php?slug=<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a>
                                     </h3>
                                     <div class="product-card-price">
-                                        <span class="card-price-regular"><?php echo $row['sale_price']; ?></span>
-                                        <span class="card-price-compare text-decoration-line-through"><?php echo $row['regular_price']; ?></span>
+                                        <span class="card-price-regular">$<?php echo $row['sale_price']; ?></span>
+                                        <span class="card-price-compare text-decoration-line-through">$<?php echo $row['regular_price']; ?></span>
                                     </div>
                                 </div>
                             </div>

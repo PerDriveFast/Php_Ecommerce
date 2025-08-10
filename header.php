@@ -82,6 +82,8 @@ $cur_page = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/"
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/vendor.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/spacing.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>dist_font/css/style.css">
+
+
 </head>
 
 <body>

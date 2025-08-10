@@ -103,6 +103,8 @@
 <script src="<?php echo BASE_URL; ?>dist_font/js/vendor.js"></script>
 <script src="<?php echo BASE_URL; ?>dist_admin/js/iziToast.min.js"></script>
 <script src="<?php echo BASE_URL; ?>dist_font/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>
 </div>
 <?php if (isset($error_message)): ?>
     <script>

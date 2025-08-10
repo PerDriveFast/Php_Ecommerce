@@ -1,5 +1,18 @@
 <?php include 'header.php'; ?>
+<?php
+$statement = $pdo->prepare("SELECT * FROM products WHERE slug=?");
+$statement->execute([$_REQUEST['slug']]);
+$product_data = $statement->fetch(PDO::FETCH_ASSOC);
+$total = $statement->rowCount();
+if ($total == 0) {
+    header('location: ' . BASE_URL);
+    exit;
+}
 
+$statement = $pdo->prepare("SELECT * FROM product_categories WHERE id=?");
+$statement->execute([$product_data['product_category_id']]);
+$category_data = $statement->fetch(PDO::FETCH_ASSOC);
+?>
 <!-- breadcrumb start -->
 <div class="breadcrumb">
     <div class="container">
@@ -8,11 +21,11 @@
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
-            <li>Bag</li>
+            <li><?php echo $category_data['name']; ?></li>
             <li class="ml_10 mr_10">
                 <i class="fas fa-chevron-right"></i>
             </li>
-            <li>Accesories Lather Bag</li>
+            <li><?php echo $product_data['name']; ?></li>
         </ul>
     </div>
 </div>
@@ -33,40 +46,26 @@
                                 "asNavFor": ".img-thumb-slider"
                             }'>
                                 <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" alt="img">
+                                    <a href="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" data-fancybox="gallery">
+                                        <img src="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" alt="img">
                                     </a>
                                 </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" alt="img">
-                                    </a>
-                                </div>
-                                <div class="img-large-wrapper">
-                                    <a href="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" data-fancybox="gallery">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" alt="img">
-                                    </a>
-                                </div>
+
+                                <?php
+                                $statement = $pdo->prepare("SELECT * FROM product_photos WHERE product_id=?");
+                                $statement->execute([$product_data['id']]);
+                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($result as $row) {
+                                ?>
+                                    <div class="img-large-wrapper">
+                                        <a href="<?php echo BASE_URL; ?>uploads/<?php echo $row['photo']; ?>" data-fancybox="gallery">
+                                            <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photo']; ?>" alt="img">
+                                        </a>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                         </div>
                         <div class="product-img-thumb">
@@ -82,41 +81,7 @@
                                 "swipeToSlide": true,
                                 "asNavFor": ".img-large-slider"
                             }'>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/39.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/38.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/37.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/36.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/34.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/30.jpg" alt="img">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="img-thumb-wrapper">
-                                        <img src="<?php echo BASE_URL; ?>dist_font/img/products/bags/32.jpg" alt="img">
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>
                         </div>
