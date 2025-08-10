@@ -18,7 +18,7 @@
                         } ?>"><a class="nav-link" href="<?php echo ADMIN_URL; ?>product-category-view.php"><i class="far fa-file"></i> <span>Product Category</span></a></li>
             <li class="<?php if ($cur_page == 'product-view.php') {
                             echo 'active';
-                        } ?>"><a class="nav-link" href="<?php echo ADMIN_URL; ?>product-view.php"><i class="far fa-file"></i> <span>Product</span></a></li>
+                        } ?>"><a class="nav-link" href="<?php echo ADMIN_URL; ?>product-view.php"><i class="fa-brands fa-product-hunt"></i><span>Product</span></a></li>
             <!-- <li class="nav-item dropdown active">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-point-right"></i><span>Dropdown Items</span></a>
                 <ul class="dropdown-menu">

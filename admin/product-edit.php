@@ -26,9 +26,11 @@ if (isset($_POST['form1'])) {
         }
         // Slug uniqueness using database check
         $statement = $pdo->prepare("SELECT * FROM products WHERE slug=? AND id!=?");
-
         // lỗi ở đây mà ko thấy 
         $statement->execute([$_POST['slug'], $_REQUEST['id']]);
+
+
+
         $total = $statement->rowCount();
         if ($total) {
             throw new Exception('Slug already exists');

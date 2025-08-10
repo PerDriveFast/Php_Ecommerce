@@ -109,7 +109,9 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" name="name" required>
+                                            <input type="text" class="form-control" name="name" value="<?php if (isset($_POST['name'])) {
+                                                                                                            echo $_POST['name'];
+                                                                                                        } ?>">
                                         </div>
                                     </div>
 
@@ -117,7 +119,10 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Slug</label>
-                                            <input type="text" class="form-control" name="slug" placeholder="Leave blank to auto-generate">
+                                            <input type="text" class="form-control" name="slug" placeholder="Leave blank to auto-generate"
+                                                value="<?php if (isset($_POST['slug'])) {
+                                                            echo $_POST['slug'];
+                                                        } ?>">
                                         </div>
                                     </div>
 
@@ -125,24 +130,35 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Select Category</label>
-                                            <select class="form-select" name="product_category_id" required>
+                                            <select class="form-select" name="product_category_id">
+                                                <!-- Option trống -->
+                                                <option value="">-- Select a category --</option>
+
                                                 <?php
                                                 $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC");
                                                 $statement->execute();
-                                                $categories = $statement->fetchAll(PDO::FETCH_ASSOC);
-                                                foreach ($categories as $cat) {
-                                                    echo '<option value="' . $cat['id'] . '">' . $cat['name'] . '</option>';
+                                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                                foreach ($result as $row) {
+                                                ?>
+                                                    <option value="<?php echo $row['id']; ?>"
+                                                        <?php if (isset($_POST['product_category_id']) && $_POST['product_category_id'] == $row['id']) echo 'selected'; ?>>
+                                                        <?php echo $row['name']; ?>
+                                                    </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
 
+
                                     <!-- Quantity -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Quantity</label>
-                                            <input type="number" class="form-control" name="quantity">
+                                            <input type="number" class="form-control" name="quantity" placeholder="Please enter a quantity" value="<?php if (isset($_POST['quantity'])) {
+                                                                                                                                                        echo $_POST['quantity'];
+                                                                                                                                                    } ?> ">
                                         </div>
                                     </div>
 
@@ -150,15 +166,19 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Regular Price</label>
-                                            <input type="text" class="form-control" name="regular_price">
+                                            <input type="text" class="form-control" name="regular_price" placeholder="Please enter a price" value="<?php if (isset($_POST['regular_price'])) {
+                                                                                                                                                        echo $_POST['regular_price'];
+                                                                                                                                                    } ?>">
                                         </div>
                                     </div>
 
                                     <!-- Sale Price -->
-                                    <div class="col-md-6">
+                                    <div class=" col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Sale Price</label>
-                                            <input type="text" class="form-control" name="sale_price">
+                                            <input type="text" class="form-control" name="sale_price" placeholder="Please enter a Sale_price" value="<?php if (isset($_POST['sale_price'])) {
+                                                                                                                                                            echo $_POST['sale_price'];
+                                                                                                                                                        } ?>">
                                         </div>
                                     </div>
 
@@ -166,7 +186,11 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Short Description</label>
-                                            <textarea type="text" class="form-control h_100" name="short_description"></textarea>
+                                            <textarea type="text" class="form-control h_100" name="short_description" value="<?php if (isset($_POST['short_description'])) {
+                                                                                                                                    echo $_POST['short_description'];
+                                                                                                                                } else {
+                                                                                                                                    echo '';
+                                                                                                                                }  ?>" placeholder="Enter short description (optional) ?>"></textarea>
                                         </div>
                                     </div>
 
@@ -174,52 +198,68 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Description</label>
-                                            <textarea type="text" class="form-control editor" name="description"></textarea>
+                                            <textarea type="text" class="form-control editor" name="description" value="<?php if (isset($_POST['description'])) {
+                                                                                                                            echo $_POST['description'];
+                                                                                                                        } else {
+                                                                                                                            echo '';
+                                                                                                                        } ?>" placeholder="Enter description (optional) ?>"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>SKU</label>
-                                            <input type="text" class="form-control" name="sku">
+                                            <input type="text" class="form-control" name="sku" value="<?php if (isset($_POST['sku'])) {
+                                                                                                            echo $_POST['sku'];
+                                                                                                        } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Size</label>
-                                            <input type="number" class="form-control" name="size">
+                                            <input type="number" class="form-control" name="size" value="<?php if (isset($_POST['size'])) {
+                                                                                                                echo $_POST['size'];
+                                                                                                            } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Color</label>
-                                            <input type="text" class="form-control" name="color">
+                                            <input type="text" class="form-control" name="color" value="<?php if (isset($_POST['color'])) {
+                                                                                                            echo $_POST['color'];
+                                                                                                        } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Capacity</label>
-                                            <input type="text" class="form-control" name="capacity">
+                                            <input type="text" class="form-control" name="capacity" value="<?php if (isset($_POST['capacity'])) {
+                                                                                                                echo $_POST['capacity'];
+                                                                                                            } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Weight</label>
-                                            <input type="text" class="form-control" name="weight">
+                                            <input type="text" class="form-control" name="weight" value="<?php if (isset($_POST['weight'])) {
+                                                                                                                echo $_POST['weight'];
+                                                                                                            } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Pocket</label>
-                                            <input type="text" class="form-control" name="pocket">
+                                            <input type="text" class="form-control" name="pocket" value="<?php if (isset($_POST['pocket'])) {
+                                                                                                                echo $_POST['pocket'];
+                                                                                                            } ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Water Resistant</label>
                                             <select class="form-select" name="water_resistant">
-                                                <option value="Yes">Yes</option>
-                                                <option value="No">No</option>
+                                                <option value="Yes" <?php if (isset($_POST['water_resistant']) && $_POST['water_resistant'] == 'Yes') echo 'selected'; ?>>Yes</option>
+                                                <option value="No" <?php if (isset($_POST['water_resistant']) && $_POST['water_resistant'] == 'No') echo 'selected'; ?>>No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -227,7 +267,9 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Warranty</label>
-                                            <input type="text" class="form-control" name="warranty" placeholder="e.g. 12 months">
+                                            <input type="text" class="form-control" name="warranty" placeholder="e.g. 12 months" value="<?php if (isset($_POST['warranty'])) {
+                                                                                                                                            echo $_POST['warranty'];
+                                                                                                                                        } ?>">
                                         </div>
                                     </div>
 
