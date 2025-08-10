@@ -302,19 +302,6 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
         </div>
     </section>
 </div>
-<script>
-    document.getElementById('featured_photo').addEventListener('change', function(event) {
-        let file = event.target.files[0];
-        if (file) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                let preview = document.getElementById('preview_image');
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-</script>
+
 
 <?php include 'layouts/footer.php'; ?>

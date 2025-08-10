@@ -101,7 +101,10 @@ if (isset($_POST['form1'])) {
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Featured Photo </label>
-                                            <input type="file" name="featured_photo" class="form-control">
+                                            <input type="file" name="featured_photo" class="form-control" id="featured_photo">
+                                        </div>
+                                        <div style="margin-top: 10px;">
+                                            <img id="preview_image" src="" alt="" style="width:140px; display:none;">
                                         </div>
                                     </div>
 

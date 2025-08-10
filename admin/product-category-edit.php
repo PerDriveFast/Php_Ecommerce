@@ -88,7 +88,10 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
                                         <div class="form-group mb-3">
                                             <label>Change Photo</label>
                                             <div>
-                                                <input type="file" name="photo">
+                                                <input type="file" name="photo" id="featured_photo">
+                                            </div>
+                                            <div style="margin-top: 10px;">
+                                                <img id="preview_image" src="" alt="" style="width:140px; display:none;">
                                             </div>
                                         </div>
                                     </div>

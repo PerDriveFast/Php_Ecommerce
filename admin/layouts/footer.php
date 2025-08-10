@@ -73,6 +73,21 @@
     <?php unset($_SESSION['toast_message']); ?>
 <?php endif; ?>
 </script>
+
+<script>
+    document.getElementById('featured_photo').addEventListener('change', function(event) {
+        let file = event.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let preview = document.getElementById('preview_image');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 </body>
 
 </html>
