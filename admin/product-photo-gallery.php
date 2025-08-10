@@ -14,8 +14,6 @@ if ($total == 0) {
 if (isset($_POST['form1'])) {
     try {
 
-
-
         $path = $_FILES['photo']['name'];
         $path_tmp = $_FILES['photo']['tmp_name'];
 
@@ -86,7 +84,7 @@ if (isset($_POST['form2'])) {
         </div>
         <div class="section-body">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8" style="text-align: center;">
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">

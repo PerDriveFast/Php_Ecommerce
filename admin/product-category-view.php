@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="example1">
+                                <table class="table table-bordered" id="example1" style="text-align: center;">
                                     <thead>
                                         <tr>
                                             <th>SL</th>

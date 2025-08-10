@@ -1134,7 +1134,7 @@ button,
     -ms-transform: translateY(300%);
     -webkit-transform: translateY(300%);
     transform: translateY(300%); }
-  .product-card-action-2 .addtocart-btn {
+  .product-card-action-2 .addtocart-btn, .addtocart-btn {
     -ms-transition: all 0.6s ease;
     -webkit-transition: all 0.6s ease;
     -o-transition: all 0.6s ease;
