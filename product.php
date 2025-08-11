@@ -39,12 +39,13 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                     <div class="product-gallery product-gallery-vertical d-flex">
                         <div class="product-img-large">
                             <div class="img-large-slider common-slider" data-slick='{
-                                "slidesToShow": 1, 
+                                "slidesToShow": 1,
                                 "slidesToScroll": 1,
                                 "dots": false,
                                 "arrows": false,
                                 "asNavFor": ".img-thumb-slider"
                             }'>
+
                                 <div class="img-large-wrapper">
                                     <a href="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" data-fancybox="gallery">
                                         <img src="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" alt="img">
@@ -81,6 +82,25 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                                 "swipeToSlide": true,
                                 "asNavFor": ".img-large-slider"
                             }'>
+                                <div>
+                                    <div class="img-thumb-wrapper">
+                                        <img src="<?php echo BASE_URL; ?>uploads/<?php echo $product_data['featured_photo']; ?>" alt="img">
+                                    </div>
+                                </div>
+                                <?php
+                                $statement = $pdo->prepare("SELECT * FROM product_photos WHERE product_id=?");
+                                $statement->execute([$product_data['id']]);
+                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($result as $row) {
+                                ?>
+                                    <div>
+                                        <div class="img-thumb-wrapper">
+                                            <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photo']; ?>" alt="img">
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
 
                             </div>
                             <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>

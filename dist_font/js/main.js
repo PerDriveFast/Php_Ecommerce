@@ -102,15 +102,15 @@
   })
 
   // increament-decreament button
-  $(".qty-btn").on('click', function () {
-    var qtyInput = $(this).parent().find('input');
+//   $(".qty-btn").on('click', function () {
+//     var qtyInput = $(this).parent().find('input');
 
-    if ($(this).hasClass('inc-qty')) {
-      qtyInput.val(parseInt(qtyInput.val()) + 1);
-    } else if (qtyInput.val() >= 1) {
-      qtyInput.val(parseInt(qtyInput.val()) - 1);
-    }
-  });
+//     if ($(this).hasClass('inc-qty')) {
+//       qtyInput.val(parseInt(qtyInput.val()) + 1);
+//     } else if (qtyInput.val() >= 1) {
+//       qtyInput.val(parseInt(qtyInput.val()) - 1);
+//     }
+//   });
 
   // footer copyright current date
   $('.current-year').text(new Date().getFullYear());
@@ -176,8 +176,6 @@
     }, 3000);
   });
 
-  // disable autocomplete for forms
-  // không hiển thị dữ liệu gợi ý khi nhập 
-  $('form').attr('autocomplete', 'off');
+  $("form").attr("autocomplete", "off");
 
 })(jQuery);
