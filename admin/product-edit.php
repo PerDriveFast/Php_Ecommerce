@@ -14,6 +14,7 @@ if ($total == 0) {
 <?php
 if (isset($_POST['form1'])) {
     try {
+
         if ($_POST['name'] == '') {
             throw new Exception('Name cannot be empty');
         }
@@ -26,11 +27,7 @@ if (isset($_POST['form1'])) {
         }
         // Slug uniqueness using database check
         $statement = $pdo->prepare("SELECT * FROM products WHERE slug=? AND id!=?");
-        // lỗi ở đây mà ko thấy 
         $statement->execute([$_POST['slug'], $_REQUEST['id']]);
-
-
-
         $total = $statement->rowCount();
         if ($total) {
             throw new Exception('Slug already exists');
@@ -64,7 +61,6 @@ if (isset($_POST['form1'])) {
             throw new Exception('Description cannot be empty');
         }
 
-        // Lấy dữ liệu cũ của sản phẩm
         $statement = $pdo->prepare("UPDATE products SET name=?, slug=?, product_category_id=?, quantity=?, regular_price=?, sale_price=?, short_description=?, description=?, sku=?, size=?, color=?, capacity=?, weight=?, pocket=?, water_resistant=?, warranty=? WHERE id=?");
         $statement->execute([
             $_POST['name'],
@@ -86,18 +82,18 @@ if (isset($_POST['form1'])) {
             $_REQUEST['id']
         ]);
 
+
         $path = $_FILES['featured_photo']['name'];
         $path_tmp = $_FILES['featured_photo']['tmp_name'];
-
         if ($path != '') {
             $extension = pathinfo($path, PATHINFO_EXTENSION);
             $filename = "product_" . time() . "." . $extension;
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mine = finfo_file($finfo, $path_tmp);
-            if ($mine != 'image/jpeg' && $mine != 'image/png' && $mine != 'image/gif') {
-
+            $mime = finfo_file($finfo, $path_tmp);
+            if ($mime != 'image/jpeg' && $mime != 'image/png' && $mime != 'image/gif') {
                 throw new Exception('Please upload a valid photo');
             }
+
             unlink('../uploads/' . $result['featured_photo']);
 
             $source = $path_tmp;
@@ -106,11 +102,11 @@ if (isset($_POST['form1'])) {
 
             $statement = $pdo->prepare("UPDATE products SET featured_photo=? WHERE id=?");
             $statement->execute([$filename, $_REQUEST['id']]);
-
-            $_SESSION['success_message'] = 'Product has been updated successfully';
-            header('location: ' . ADMIN_URL . 'product-view.php');
-            exit;
         }
+
+        $_SESSION['success_message'] = 'Product has been updated successfully.';
+        header('location: ' . ADMIN_URL . 'product-view.php');
+        exit;
     } catch (Exception $e) {
         $error_message = $e->getMessage();
         $_SESSION['error_message'] = $error_message;
@@ -120,12 +116,10 @@ if (isset($_POST['form1'])) {
 }
 ?>
 
-
 <?php
 $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
 $statement->execute([$_REQUEST['id']]);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <div class="main-content">
@@ -155,74 +149,57 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
                                         <div class="form-group mb-3">
                                             <label>Change Featured Photo</label>
                                             <div>
-                                                <input type="file" name="featured_photo" id="featured_photo">
-                                            </div>
-                                            <div style="margin-top: 10px;">
-                                                <img id="preview_image" src="" alt="" style="width:140px; display:none;">
+                                                <input type="file" name="featured_photo">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Name -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" name="name" value="<?php echo $result['name']; ?>" required>
+                                            <label>Name *</label>
+                                            <input type="text" class="form-control" name="name" value="<?php echo $result['name']; ?>">
                                         </div>
                                     </div>
-
-                                    <!-- Slug -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Slug</label>
-                                            <input type="text" class="form-control" name="slug" value="<?php echo $result['slug']; ?>" placeholder="Leave blank to auto-generate">
+                                            <label>Slug *</label>
+                                            <input type="text" class="form-control" name="slug" value="<?php echo $result['slug']; ?>">
                                         </div>
                                     </div>
-
-                                    <!-- Category -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Select Category</label>
-                                            <select class="form-select" name="product_category_id" required>
+                                            <label>Select Category *</label>
+                                            <select name="product_category_id" class="form-select">
                                                 <?php
                                                 $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC");
                                                 $statement->execute();
                                                 $product_categories = $statement->fetchAll(PDO::FETCH_ASSOC);
                                                 foreach ($product_categories as $row) {
                                                 ?>
-                                                    <option value="<?php echo $row['id']; ?>" <?php echo $row['id'] == $result['product_category_id'] ? 'selected' : ''; ?>> <?php echo $row['name']; ?> </option>
+                                                    <option value="<?php echo $row['id']; ?>" <?php if ($row['id'] == $result['product_category_id']) echo 'selected'; ?>><?php echo $row['name']; ?></option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!-- Quantity -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Quantity</label>
-                                            <input type="number" class="form-control" value="<?php echo $result['quantity']; ?>" name="quantity">
+                                            <label>Quantity *</label>
+                                            <input type="text" class="form-control" name="quantity" value="<?php echo $result['quantity']; ?>">
                                         </div>
                                     </div>
-
-                                    <!-- Regular Price -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Regular Price</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['regular_price']; ?>" name="regular_price">
+                                            <label>Regular Price *</label>
+                                            <input type="text" class="form-control" name="regular_price" value="<?php echo $result['regular_price']; ?>">
                                         </div>
                                     </div>
-
-                                    <!-- Sale Price -->
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label>Sale Price</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['sale_price']; ?>" name="sale_price">
+                                            <label>Sale Price *</label>
+                                            <input type="text" class="form-control" name="sale_price" value="<?php echo $result['sale_price']; ?>">
                                         </div>
                                     </div>
-
-                                    <!-- Short Description -->
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Short Description *</label>
@@ -235,59 +212,55 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
                                             <textarea name="description" class="form-control editor"><?php echo $result['description']; ?></textarea>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>SKU</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['sku']; ?>" name="sku">
+                                            <input type="text" class="form-control" name="sku" value="<?php echo $result['sku']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Size</label>
-                                            <input type="number" class="form-control" value="<?php echo $result['size']; ?>" name="size">
+                                            <input type="text" class="form-control" name="size" value="<?php echo $result['size']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Color</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['color']; ?>" name="color">
+                                            <input type="text" class="form-control" name="color" value="<?php echo $result['color']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Capacity</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['capacity']; ?>" name="capacity">
+                                            <input type="text" class="form-control" name="capacity" value="<?php echo $result['capacity']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Weight</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['weight']; ?>" name="weight">
+                                            <input type="text" class="form-control" name="weight" value="<?php echo $result['weight']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Pocket</label>
-                                            <input type="text" class="form-control" value="<?php echo $result['pocket']; ?>" name="pocket">
+                                            <input type="text" class="form-control" name="pocket" value="<?php echo $result['pocket']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Water Resistant</label>
-                                            <select class="form-select" name="water_resistant">
-                                                <option value="Yes" <?php echo ($result['water_resistant'] == 'Yes') ? 'selected' : ''; ?>>Yes</option>
-                                                <option value="No" <?php echo ($result['water_resistant'] == 'No')  ? 'selected' : ''; ?>>No</option>
-
+                                            <select name="water_resistant" class="form-select">
+                                                <option value="Yes" <?php if ($result['water_resistant'] == 'Yes') echo 'selected'; ?>>Yes</option>
+                                                <option value="No" <?php if ($result['water_resistant'] == 'No') echo 'selected'; ?>>No</option>
                                             </select>
-
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <label>Warranty</label>
-                                            <input type="text" class="form-control" name="warranty" value="<?php echo $result['warranty']; ?>" placeholder="e.g. 12 months">
+                                            <input type="text" class="form-control" name="warranty" value="<?php echo $result['warranty']; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -302,6 +275,5 @@ $result = $statement->fetch(PDO::FETCH_ASSOC);
         </div>
     </section>
 </div>
-
 
 <?php include 'layouts/footer.php'; ?>

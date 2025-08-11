@@ -109,21 +109,29 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-details ps-lg-4">
-                        <div class="mb-3"><span class="product-availability">In Stock</span></div>
-                        <h2 class="product-title mb-3">Accesories Lather bag</h2>
+                        <div class="mb-3">
+                            <?php if ($product_data['quantity'] > 0): ?>
+                                <span class="product-availability" style="background-color: #1ea51e; color: #fff;">In Stock</span>
+                            <?php else: ?>
+                                <span class="product-availability" style="background-color: red; color: #fff;">Out of Stock</span>
+                            <?php endif; ?>
+                        </div>
+                        <h2 class="product-title mb-3"><?php echo $product_data['name']; ?></h2>
 
                         <div class="product-price-wrapper mb-4">
-                            <span class="product-price regular-price">৳24.00</span>
-                            <del class="product-price compare-price ms-2">৳32.00</del>
+                            <span class="product-price regular-price">$<?php echo $product_data['sale_price']; ?></span>
+                            <?php if ($product_data['regular_price'] > $product_data['sale_price']): ?>
+                                <del class="card-price-compare text-decoration-line-through">$<?php echo $product_data['regular_price']; ?></del>
+                            <?php endif; ?>
                         </div>
 
                         <div class="product-vendor product-meta mb-3">
-                            <strong class="label">Category:</strong> Women Bag
+                            <strong class="label">Category:</strong> <?php echo $category_data['name']; ?>
                         </div>
 
                         <div class="product-short-description">
                             <p>
-                                Volumus aliquando sea te. Per partem perfecto appellantur ei. Legere volumus pri ne. Eu cum case etiam, dicat solet omittam ei ius. Usu novum accumsan ut, cu honestatis definitiones vim, vis rebum atqui saperet cu. At consul persius vel, id pri dignissim ullamcorper, duo cu invidunt mediocrem.
+                                <?php echo $product_data['short_description'] ?>
                             </p>
                         </div>
 
@@ -161,14 +169,9 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                         <div class="col-lg-12 col-md-12 col-12">
                             <div class="desc-content">
                                 <p>
-                                    Lorem ipsum dolor sit amet, vidit senserit pri ut, dolor eripuit detraxit et qui, mei duis graeco inermis in. Eligendi verterem voluptatibus ut vel. Vim periculis abhorreant constituto eu, aliquid laboramus ne per. An scripta erroribus cum, ne zril veritus pro, ne vis saepe quaeque ceteros.
+                                    <?php echo $product_data['description']; ?>
                                 </p>
-                                <p>
-                                    Ex cum impetus vidisse labitur, omnis noluisse ut pro. Indoctum patrioque assentior qui eu. An veri postulant honestatis pro, cu nihil saepe dicant sea, usu paulo dicunt inimicus ei. Exerci aeterno intellegam eu vix, eius admodum ne sed. Antiopam laboramus constituam est eu, vim affert oratio voluptaria in. Ex duo copiosae inimicus, ut est sonet quaeque.
-                                </p>
-                                <p>
-                                    Id eam vitae soluta explicari, quo delectus reprimique complectitur ad. Quot debet quodsi ea vis, adolescens definiebas disputando nec et. Eam graecis accusam assentior in. Nam amet iriure eleifend at, cum soleat nominati an, nam mentitum percipit ut. Dicta iuvaret id sed, an mei graeci dissentias. Facer minim inciderint sit at, ad qui possim patrioque sententiae.
-                                </p>
+
                             </div>
                         </div>
                     </div>
@@ -179,67 +182,36 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                             <table class="table table-bordered">
                                 <tr>
                                     <td>SKU</td>
-                                    <td>102</td>
+                                    <td><?php echo $product_data['sku']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Size</td>
-                                    <td>20 Inch</td>
+                                    <td><?php echo $product_data['size']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Color</td>
-                                    <td>Red, Blue, White</td>
-                                </tr>
-                                <tr>
-                                    <td>Pattern</td>
-                                    <td>Solid Color + Reflective Stripes</td>
+                                    <td><?php echo $product_data['color']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Capacity</td>
-                                    <td>30 Liters</td>
+                                    <td><?php echo $product_data['capacity']; ?></td>
                                 </tr>
+
                                 <tr>
                                     <td>Weight</td>
-                                    <td>1.8 lbs (0.8 kg)</td>
+                                    <td><?php echo $product_data['weight']; ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Outer Fabric</td>
-                                    <td>600D Polyester (Recycled)</td>
-                                </tr>
-                                <tr>
-                                    <td>Lining</td>
-                                    <td>Nylon (Water-Resistant Coating)</td>
-                                </tr>
-                                <tr>
-                                    <td>Zippers</td>
-                                    <td>YKK® Anti-Theft Zippers</td>
-                                </tr>
-                                <tr>
-                                    <td>Hardware</td>
-                                    <td>Rust-Proof Metal Buckles</td>
-                                </tr>
-                                <tr>
-                                    <td>Pockets</td>
-                                    <td>5 Total (Including Hidden RFID Pocket)</td>
-                                </tr>
-                                <tr>
-                                    <td>Comfort</td>
-                                    <td>Padded Shoulder Straps + Breathable Back</td>
+                                    <td>Pocket</td>
+                                    <td><?php echo $product_data['pocket']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Water Resistance</td>
-                                    <td>Light Rain-Resistant (Not Submersible)</td>
+                                    <td><?php echo $product_data['water_resistant']; ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Warranty</td>
-                                    <td>1-Year Manufacturing Defects</td>
-                                </tr>
-                                <tr>
-                                    <td>Ideal For</td>
-                                    <td>Travel, Hiking, Work Commute</td>
-                                </tr>
-                                <tr>
-                                    <td>Certifications</td>
-                                    <td>OEKO-TEX® Certified, PETA-Approved Vegan</td>
+                                    <td>Warrant</td>
+                                    <td><?php echo $product_data['warranty']; ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -250,15 +222,30 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
     </div>
     <!-- product tab end -->
 
-    <!-- you may also like start -->
-    <div class="featured-collection-section mt-100 home-section overflow-hidden">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-heading">You may also like</h2>
-            </div>
+    <?php
 
-            <div class="product-container position-relative">
-                <div class="common-slider" data-slick='{
+    $statement = $pdo->prepare("SELECT * FROM products WHERE id!=? AND product_category_id=? ORDER BY id DESC");
+    $statement->execute([$product_data['id'], $product_data['product_category_id']]);
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $total = $statement->rowCount();
+    ?>
+
+    <?php
+    if ($total >  0):
+
+
+    ?>
+
+
+        <!-- you may also like start -->
+        <div class="featured-collection-section mt-100 home-section overflow-hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-heading">You may also like</h2>
+                </div>
+
+                <div class="product-container position-relative">
+                    <div class="common-slider" data-slick='{
                 "slidesToShow": 4, 
                 "slidesToScroll": 1,
                 "dots": false,
@@ -279,211 +266,58 @@ $category_data = $statement->fetch(PDO::FETCH_ASSOC);
                 ]
             }'>
 
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/1.jpg" alt="">
-                                </a>
 
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
+                        <?php
 
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">black backpack</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳1529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳1759</span>
+
+                        foreach ($result as $row) {
+                        ?>
+                            <div class="new-item">
+                                <div class="product-card">
+                                    <div class="product-card-img">
+                                        <a class="hover-switch" href="<?php echo BASE_URL ?>product.php?slug=<?php echo $row['slug']; ?>">
+                                            <img class="primary-img" src="<?php echo BASE_URL; ?>uploads/<?php echo $row['featured_photo']; ?>" alt="">
+                                        </a>
+
+                                        <form action="" method="post" class="product-card-action product-card-action-2">
+                                            <button type="submit" class="addtocart-btn btn-primary" name="form_add_to_cart">
+                                                ADD TO CART
+                                            </button>
+                                        </form>
+
+
+                                        <form action="" method="post">
+                                            <button type="submit" class="wishlist-btn card-wishlist" name="form_wishlist">
+                                                <i class="far fa-heart" style="color:#000;font-size:20px;"></i></button>
+                                        </form>
+
+
+                                    </div>
+                                    <div class="product-card-details text-center">
+                                        <h3 class="product-card-title"><a href="<?php echo BASE_URL ?>product.php?slug=<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a>
+                                        </h3>
+                                        <div class="product-card-price">
+                                            <span class="product-price regular-price">$<?php echo $product_data['sale_price']; ?></span>
+                                            <?php if ($product_data['regular_price'] > $product_data['sale_price']): ?>
+                                                <del class="card-price-compare text-decoration-line-through">$<?php echo $product_data['regular_price']; ?></del>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
+
+
+
                     </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/2.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">lady handbag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳759</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/3.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">men travel bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                    <span class="card-price-compare text-decoration-line-through">৳759</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/4.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/5.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/6.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">nike legend
-                                        stripe</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/7.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">women vanity
-                                        bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-item">
-                        <div class="product-card">
-                            <div class="product-card-img">
-                                <a class="hover-switch" href="product.php">
-                                    <img class="primary-img" src="<?php echo BASE_URL; ?>dist_font/img/products/bags/8.jpg" alt="">
-                                </a>
-
-                                <div class="product-card-action product-card-action-2">
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
-                                </div>
-
-                                <a href="wishlist.php" class="wishlist-btn card-wishlist">
-                                    <i class="far fa-heart" style="color:#000;font-size:20px;"></i>
-                                </a>
-                            </div>
-                            <div class="product-card-details text-center">
-                                <h3 class="product-card-title"><a href="product.php">women large bag</a>
-                                </h3>
-                                <div class="product-card-price">
-                                    <span class="card-price-regular">৳529</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="activate-arrows show-arrows-always article-arrows arrows-white"></div>
                 </div>
-                <div class="activate-arrows show-arrows-always article-arrows arrows-white"></div>
             </div>
         </div>
-    </div>
-    <!-- you may also lik end -->
+        <!-- you may also lik end -->
+    <?php endif; ?>
 </main>
 
 <?php include 'footer.php'; ?>
