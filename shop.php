@@ -1,5 +1,28 @@
 <?php include 'header.php'; ?>
 
+<?php
+if (!isset($_GET['name'])) {
+    $_GET['name'] = '';
+}
+if (!isset($_GET['category'])) {
+    $_GET['category'] = '';
+}
+if (isset($_GET['name'])) {
+    if ($_GET['name'] == '') {
+        $c_name = '';
+    } else {
+        $c_name = " AND name LIKE '%" . $_GET['name'] . "%'";
+    }
+}
+if (isset($_GET['category'])) {
+    if ($_GET['category'] == '') {
+        $c_category = '';
+    } else {
+        $c_category = " AND product_category_id=" . $_GET['category'];
+    }
+}
+?>
+
 <!-- breadcrumb start -->
 <div class="breadcrumb">
     <div class="container">
@@ -20,7 +43,10 @@
         <div class="container">
             <div class="row flex-row-reverse">
                 <?php
-                $q = $pdo->prepare("SELECT * FROM products");
+
+                $query = $c_name . $c_category;
+
+                $q = $pdo->prepare("SELECT * FROM products WHERE 1=1" . $query);
                 $q->execute();
                 $total = $q->rowCount();
                 ?>
@@ -46,10 +72,14 @@
                         </div>
                     </div>
                     <div class="collection-product-container">
+                        <?php
+                        if ($total == 0): ?>
+                            <div class="text-danger mt_30">No Item Found</div>
+                        <?php endif; ?>
                         <div class="row">
 
                             <?php
-                            $per_page = 3;
+                            $per_page = 2;
                             $total_pages = ceil($total / $per_page);
 
                             if (!isset($_REQUEST['p'])) {
@@ -73,7 +103,7 @@
                                     $arr1[] = $row['id'];
                                 }
                             }
-                            $statement = $pdo->prepare("SELECT * FROM products");
+                            $statement = $pdo->prepare("SELECT * FROM products WHERE 1=1" . $query);
                             $statement->execute();
                             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                             $total_row = $statement->rowCount();
@@ -129,7 +159,7 @@
                                 <ul class="pagination m-0 d-flex align-items-center">
 
                                     <?php
-                                    $common_url = BASE_URL . 'shop.php';
+                                    $common_url = BASE_URL . 'shop.php?name=' . $_GET['name'] . '&category=' . $_GET['category'];
 
 
                                     if (isset($_REQUEST['p'])) {
@@ -217,6 +247,7 @@
                                         }
                                     } else {
                                         ?>
+                                        <!-- &p -->
                                         <li class="item">
                                             <a class="link" href="<?php echo $common_url; ?>&p=2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
@@ -242,157 +273,178 @@
                 <!-- sidebar start -->
                 <div class="col-lg-3 col-md-12 col-12">
                     <div class="collection-filter filter-drawer">
+                        <form action="" method="get">
+                            <div class="filter-widget">
+                                <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                    data-bs-toggle="collapse" data-bs-target="#filter-availability">
+                                    Title or content
+                                </div>
+                                <div class="mt_20">
+                                    <input type="text" name="name" class="form-control" placeholder="Search..."
+                                        value="<?php if (isset($_GET['name'])) {
+                                                    echo $_GET['name'];
+                                                } ?>">
 
-                        <div class="filter-widget">
-                            <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                data-bs-toggle="collapse" data-bs-target="#filter-availability">
-                                Title or content
+
+
+                                </div>
                             </div>
-                            <div class="mt_20">
-                                <input type="text" name="search" class="form-control" placeholder="Search...">
-
-                            </div>
-                        </div>
-                        <!--Product Categories Session  -->
+                            <!--Product Categories Session  -->
 
 
-                        <div class="filter-widget">
-                            <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                data-bs-toggle="collapse" data-bs-target="#filter-collection">
-                                Categories
-                                <span class="faq-heading-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </span>
-                            </div>
-                            <div id="filter-collection" class="accordion-collapse collapse show">
-                                <ul class="filter-lists list-unstyled mb-0">
-                                    <?php
-                                    $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC ");
-                                    $statement->execute();
-                                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-                                    foreach ($result as $row) {
-                                    ?>
-
+                            <div class="filter-widget">
+                                <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                    data-bs-toggle="collapse" data-bs-target="#filter-collection">
+                                    Categories
+                                    <span class="faq-heading-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div id="filter-collection" class="accordion-collapse collapse show">
+                                    <ul class="filter-lists list-unstyled mb-0">
                                         <li class="filter-item">
                                             <label class="filter-label">
-                                                <input type="checkbox" name="category" />
+                                                <input type="checkbox" name="category" value=""
+                                                    <?php if (isset($_GET['category']))
+                                                        if ($_GET['category'] == '') {
+                                                            echo 'checked';
+                                                        } ?> />
                                                 <span class="filter-checkbox rounded me-2"></span>
-                                                <span class="filter-text"><?php echo $row['name'] ?></span>
+                                                <span class="filter-text">All Categories</span>
                                             </label>
                                         </li>
-                                    <?php
-                                    }
-                                    ?>
+                                        <?php
+                                        $statement = $pdo->prepare("SELECT * FROM product_categories ORDER BY name ASC ");
+                                        $statement->execute();
+                                        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                                        foreach ($result as $row) {
+                                        ?>
+
+                                            <li class="filter-item">
+                                                <label class="filter-label">
+                                                    <input type="checkbox" name="category" value="<?php echo $row['id'] ?>"
+                                                        <?php if (isset($_GET['category'])) {
+                                                            if ($_GET['category'] == $row['id']) {
+                                                                echo 'checked';
+                                                            }
+                                                        } ?> />
+                                                    <span class="filter-checkbox rounded me-2"></span>
+                                                    <span class="filter-text"><?php echo $row['name'] ?></span>
+                                                </label>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
 
 
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Availability -->
+                            <!-- Availability -->
 
-                        <div class="filter-widget">
-                            <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                data-bs-toggle="collapse" data-bs-target="#filter-availability">
-                                Availability
-                                <span class="faq-heading-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </span>
+                            <div class="filter-widget">
+                                <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                    data-bs-toggle="collapse" data-bs-target="#filter-availability">
+                                    Availability
+                                    <span class="faq-heading-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div id="filter-availability" class="accordion-collapse collapse show">
+                                    <ul class="filter-lists list-unstyled mb-0">
+                                        <li class="filter-item">
+                                            <label class="filter-label">
+                                                <input type="checkbox" />
+                                                <span class="filter-checkbox rounded me-2"></span>
+                                                <span class="filter-text">In Stock</span>
+                                            </label>
+                                        </li>
+                                        <li class="filter-item">
+                                            <label class="filter-label">
+                                                <input type="checkbox" />
+                                                <span class="filter-checkbox rounded me-2"></span>
+                                                Out of Stock
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div id="filter-availability" class="accordion-collapse collapse show">
-                                <ul class="filter-lists list-unstyled mb-0">
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" />
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            <span class="filter-text">In Stock</span>
-                                        </label>
-                                    </li>
-                                    <li class="filter-item">
-                                        <label class="filter-label">
-                                            <input type="checkbox" />
-                                            <span class="filter-checkbox rounded me-2"></span>
-                                            Out of Stock
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
 
-                        <!-- Price -->
-                        <div class="filter-widget">
-                            <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                data-bs-toggle="collapse" data-bs-target="#filter-price">
-                                Price
-                                <span class="faq-heading-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </span>
-                            </div>
-                            <div id="filter-price" class="accordion-collapse collapse show">
-                                <div class="filter-price d-flex align-items-center justify-content-between">
-                                    <div class="filter-field">
-                                        <input class="field-input" type="number" placeholder="৳0" min="0"
-                                            max="2000.00">
-                                    </div>
-                                    <div class="filter-separator px-3">To</div>
-                                    <div class="filter-field">
-                                        <input class="field-input" type="number" min="0" placeholder="৳595.00"
-                                            max="2000.00">
+                            <!-- Price -->
+                            <div class="filter-widget">
+                                <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                    data-bs-toggle="collapse" data-bs-target="#filter-price">
+                                    Price
+                                    <span class="faq-heading-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div id="filter-price" class="accordion-collapse collapse show">
+                                    <div class="filter-price d-flex align-items-center justify-content-between">
+                                        <div class="filter-field">
+                                            <input class="field-input" type="number" placeholder="৳0" min="0"
+                                                max="2000.00">
+                                        </div>
+                                        <div class="filter-separator px-3">To</div>
+                                        <div class="filter-field">
+                                            <input class="field-input" type="number" min="0" placeholder="৳595.00"
+                                                max="2000.00">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
 
 
 
 
-                        <!-- Add this script at the end of your HTML -->
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                // Define all filter groups you want this behavior applied to
-                                const filterGroups = [
-                                    '#filter-vendor',
-                                    '#filter-price',
-                                    '#filter-collection',
-                                    '#filter-availability'
-                                ];
+                            <!-- Add this script at the end of your HTML -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Define all filter groups you want this behavior applied to
+                                    const filterGroups = [
+                                        '#filter-vendor',
+                                        '#filter-price',
+                                        '#filter-collection',
+                                        '#filter-availability'
+                                    ];
 
-                                // Loop through each group and apply the radio-like behavior
-                                filterGroups.forEach(group => {
-                                    const checkboxes = document.querySelectorAll(`${group} input[type="checkbox"]`);
+                                    // Loop through each group and apply the radio-like behavior
+                                    filterGroups.forEach(group => {
+                                        const checkboxes = document.querySelectorAll(`${group} input[type="checkbox"]`);
 
-                                    checkboxes.forEach(checkbox => {
-                                        checkbox.addEventListener('change', function() {
-                                            if (this.checked) {
-                                                // Uncheck others in the same group
-                                                checkboxes.forEach(cb => {
-                                                    if (cb !== this) cb.checked = false;
-                                                });
-                                            }
+                                        checkboxes.forEach(checkbox => {
+                                            checkbox.addEventListener('change', function() {
+                                                if (this.checked) {
+                                                    // Uncheck others in the same group
+                                                    checkboxes.forEach(cb => {
+                                                        if (cb !== this) cb.checked = false;
+                                                    });
+                                                }
+                                            });
                                         });
                                     });
                                 });
-                            });
-                        </script>
+                            </script>
 
 
-                        <button type="submit" class="form-control btn btn-primary">Apply Filters</button>
-
+                            <button type="submit" class="form-control btn btn-primary">Apply Filters</button>
                     </div>
+                    </form>
                 </div>
                 <!-- sidebar end -->
             </div>
