@@ -1,6 +1,7 @@
 <?php include "header.php"; ?>
 
 <?php
+
 if (isset($_SESSION['product_id'])) {
     if (count($_SESSION['product_id']) == 0) {
         unset($_SESSION['product_id']);
@@ -10,44 +11,45 @@ if (isset($_SESSION['product_id'])) {
 
 if (isset($_POST['form_plus'])) {
     try {
+
         $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
-        $statement->execute([$_POST['id']]);
+        $statement->execute($_POST['id']);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         $key = array_search($_POST['id'], $_SESSION['product_id']);
+
         if ($_SESSION['product_quantity'][$key] + 1 > $result['quantity']) {
-            throw new Exception('Số lượng sản phẩm vượt quá tồn kho.');
+            throw new Exception("Quantity exceeds available  stock");
         }
 
         $_SESSION['product_quantity'][$key] += 1;
-        $_SESSION['success_message'] = "Đã cập nhật số lượng sản phẩm.";
-        header('location: ' . BASE_URL . 'cart.php');
-        exit;
+
+        $_SESSION['success_message'] = "Quantity updated successfully";
+        header("Location: " . BASE_URL . "cart.php");
+        exit();
     } catch (Exception $ex) {
         $_SESSION['error_message'] = $ex->getMessage();
-        header('location: ' . BASE_URL . 'cart.php');
-        exit;
+        header("location: " . BASE_URL . "cart.php");
+        exit();
     }
 }
 
 if (isset($_POST['form_minus'])) {
     try {
+
         $key = array_search($_POST['id'], $_SESSION['product_id']);
         $_SESSION['product_quantity'][$key] -= 1;
 
-        if ($_SESSION['product_quantity'][$key] <= 0) {
+        if ($_SESSION['product_quantity'][$key] == 0) {
             unset($_SESSION['product_id'][$key]);
             unset($_SESSION['product_quantity'][$key]);
             $_SESSION['product_id'] = array_values($_SESSION['product_id']);
             $_SESSION['product_quantity'] = array_values($_SESSION['product_quantity']);
         }
-        $_SESSION['success_message'] = "Đã cập nhật số lượng sản phẩm.";
-        header('location: ' . BASE_URL . 'cart.php');
-        exit;
     } catch (Exception $ex) {
         $_SESSION['error_message'] = $ex->getMessage();
-        header('location: ' . BASE_URL . 'cart.php');
-        exit;
+        header("location: " . BASE_URL . "cart.php");
+        exit();
     }
 }
 
@@ -59,12 +61,12 @@ if (isset($_POST['form_remove'])) {
         $_SESSION['product_id'] = array_values($_SESSION['product_id']);
         $_SESSION['product_quantity'] = array_values($_SESSION['product_quantity']);
 
-        $_SESSION['success_message'] = "Đã xóa sản phẩm khỏi giỏ hàng.";
-        header('location: ' . BASE_URL . 'cart.php');
-        exit;
+        $_SESSION['success_message'] = "Item is removed from the cart successfully";
+        header("Location: " . BASE_URL . "cart.php");
+        exit();
     } catch (Exception $ex) {
         $_SESSION['error_message'] = $ex->getMessage();
-        header('location: ' . BASE_URL . 'cart.php');
+        header("Location: " . BASE_URL . "cart.php");
         exit();
     }
 }
@@ -123,11 +125,13 @@ if (isset($_POST['form_remove'])) {
                                     <?php $total = 0; ?>
                                     <?php for ($i = 1; $i <= count($arr_product_id); $i++): ?>
                                         <?php
-                                        $statement = $pdo->prepare("SELECT p.*, pc.name as category_name, pc.id as category_id
-                                                                    FROM products p
-                                                                    JOIN product_categories pc
-                                                                    ON p.product_category_id = pc.id
-                                                                    WHERE p.id=?");
+                                        $statement = $pdo->prepare("SELECT p.*,
+                                                            pc.name as category_name,
+                                                            pc.id as category_id
+                                                            FROM products p
+                                                            JOIN product_categories pc
+                                                            ON p.product_category_id = pc.id
+                                                            WHERE p.id=?");
                                         $statement->execute([$arr_product_id[$i]]);
                                         $product_data = $statement->fetch(PDO::FETCH_ASSOC);
                                         ?>
@@ -149,7 +153,7 @@ if (isset($_POST['form_remove'])) {
                                                     <form action="" method="post" class="d-flex align-items-center justify-content-between">
                                                         <input type="hidden" name="id" value="<?php echo $arr_product_id[$i]; ?>">
                                                         <button type="submit" class="qty-btn dec-qty" name="form_minus"><img src="<?php echo BASE_URL; ?>dist_font/img/icon/minus.svg" alt="minus"></button>
-                                                        <input class="qty-input" type="number" value="<?php echo $arr_product_quantity[$i]; ?>" disabled>
+                                                        <input class="qty-input" type="number" name="" value="<?php echo $arr_product_quantity[$i]; ?>" disabled>
                                                         <button type="submit" class="qty-btn inc-qty" name="form_plus"><img src="<?php echo BASE_URL; ?>dist_font/img/icon/plus.svg" alt="plus"></button>
                                                     </form>
                                                 </div>
@@ -188,131 +192,5 @@ if (isset($_POST['form_remove'])) {
         </div>
     </div>
 </main>
-
-<!-- Popup thông báo -->
-<div id="cart-notification" class="cart-notification">
-    <div class="cart-notification-content">
-        <div class="check-icon">
-            <svg viewBox="0 0 52 52">
-                <circle class="check-circle" cx="26" cy="26" r="25" fill="none" />
-                <path class="check-mark" fill="none" d="M14 27l7 7 17-17" />
-            </svg>
-        </div>
-        <p></p>
-    </div>
-</div>
-
-<style>
-    .cart-notification {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        justify-content: center;
-        align-items: center;
-    }
-
-    .cart-notification-content {
-        text-align: center;
-        color: white;
-        animation: fadeInOut 2s ease forwards;
-    }
-
-    .check-icon {
-        width: 80px;
-        height: 80px;
-        margin: auto;
-    }
-
-    .check-icon svg {
-        width: 100%;
-        height: 100%;
-        stroke: #00c853;
-        stroke-width: 3;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-
-    .check-circle {
-        stroke-dasharray: 166;
-        stroke-dashoffset: 166;
-        stroke: #00c853;
-        animation: strokeCircle 0.6s forwards;
-    }
-
-    .check-mark {
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        stroke: #00c853;
-        animation: strokeCheck 0.4s 0.6s forwards;
-    }
-
-    .cart-notification p {
-        margin-top: 15px;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    @keyframes strokeCircle {
-        to {
-            stroke-dashoffset: 0;
-        }
-    }
-
-    @keyframes strokeCheck {
-        to {
-            stroke-dashoffset: 0;
-        }
-    }
-
-    @keyframes fadeInOut {
-        0% {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
-        20% {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        80% {
-            opacity: 1;
-        }
-
-        100% {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-    }
-</style>
-
-<script>
-    function showCartNotification(message = "Sản phẩm đã được thêm vào Giỏ hàng") {
-        const popup = document.getElementById('cart-notification');
-        const text = popup.querySelector('p');
-        text.textContent = message;
-
-        popup.style.display = 'flex';
-        setTimeout(() => {
-            popup.style.display = 'none';
-        }, 2000);
-    }
-
-    // Hiển thị thông báo nếu có trong session
-    <?php if (!empty($_SESSION['success_message'])): ?>
-        showCartNotification("<?php echo $_SESSION['success_message']; ?>");
-        <?php unset($_SESSION['success_message']); ?>
-    <?php endif; ?>
-
-    <?php if (!empty($_SESSION['error_message'])): ?>
-        showCartNotification("<?php echo $_SESSION['error_message']; ?>");
-        <?php unset($_SESSION['error_message']); ?>
-    <?php endif; ?>
-</script>
 
 <?php include "footer.php"; ?>

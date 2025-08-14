@@ -1,19 +1,15 @@
 <?php include 'header.php'; ?>
 
-<?php
-// echo '<pre';
-// print_r($_SESSION['product_id']);
-// print_r($_SESSION['product_quantity']);
-// echo  '</pre>';
-// exit();
-if (isset($_POST['form_add_to_cart'])) {
 
+<?php
+if (isset($_POST['form_add_to_cart'])) {
     try {
+
         $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
         $statement->execute([$_POST['id']]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         if ($result['quantity'] == 0) {
-            throw new Exception('Product is out of stock');
+            throw new Exception("Product is out of stock.");
         }
 
         if (!isset($_SESSION['product_id'])) {
@@ -22,9 +18,8 @@ if (isset($_POST['form_add_to_cart'])) {
         } else {
             $key = array_search($_POST['id'], $_SESSION['product_id']);
             if ($_SESSION['product_quantity'][$key] + 1 > $result['quantity']) {
-                throw new Exception('Product quantity exceeds available stock.');
+                throw new Exception("Product quantity exceeds available stock.");
             }
-
             if ($key !== false) {
                 $_SESSION['product_quantity'][$key] += 1;
             } else {
@@ -34,18 +29,16 @@ if (isset($_POST['form_add_to_cart'])) {
             }
         }
 
-        $_SESSION['success_message'] = "Product added to cart successfully";
+        $_SESSION['success_message'] = "Product added to cart successfully.";
         header("location: " . BASE_URL . "cart.php");
         exit();
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("location: " . BASE_URL . "index.php");
+        header("location: " . BASE_URL);
         exit();
     }
 }
-
 ?>
-
 
 <main id="MainContent" class="content-for-layout">
 
@@ -584,5 +577,7 @@ if (isset($_POST['form_add_to_cart'])) {
     </div>
     <!-- brand logo end -->
 </main>
+
+
 
 <?php include 'footer.php'; ?>
