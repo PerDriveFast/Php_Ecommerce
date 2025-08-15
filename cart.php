@@ -182,7 +182,7 @@ if (isset($_POST['form_remove'])) {
                                 </tfoot>
                             </table>
                             <div class="d-flex justify-content-start mt-4">
-                                <a href="<?php echo BASE_URL; ?>checkout" class="position-relative btn-primary text-uppercase">
+                                <a href="<?php echo BASE_URL; ?>checkout.php" class="position-relative btn-primary text-uppercase">
                                     PROCEED TO CHECKOUT
                                 </a>
                             </div>
