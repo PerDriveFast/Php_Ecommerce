@@ -22,6 +22,45 @@ if (isset($_GET['category'])) {
     }
 }
 ?>
+<?php
+if (isset($_POST['form_add_to_cart'])) {
+    try {
+
+        $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
+        $statement->execute([$_POST['id']]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($result['quantity'] == 0) {
+            throw new Exception("Product is out of stock.");
+        }
+
+        if (!isset($_SESSION['product_id'])) {
+            $_SESSION['product_id'][1] = $_POST['id'];
+            $_SESSION['product_quantity'][1] = 1;
+        } else {
+            $key = array_search($_POST['id'], $_SESSION['product_id']);
+            if ($_SESSION['product_quantity'][$key] + 1 > $result['quantity']) {
+                throw new Exception("Product quantity exceeds available stock.");
+            }
+            if ($key !== false) {
+                $_SESSION['product_quantity'][$key] += 1;
+            } else {
+                $key = count($_SESSION['product_id']) + 1;
+                $_SESSION['product_id'][$key] = $_POST['id'];
+                $_SESSION['product_quantity'][$key] = 1;
+            }
+        }
+
+        $_SESSION['success_message'] = "Product added to cart successfully.";
+        header("location: " . BASE_URL . "cart.php");
+        exit();
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = $e->getMessage();
+        header("location: " . BASE_URL . "shop.php");
+        exit();
+    }
+}
+?>
+
 
 <!-- breadcrumb start -->
 <div class="breadcrumb">
@@ -122,6 +161,7 @@ if (isset($_GET['category'])) {
                                                 </a>
 
                                                 <form action="" method="post" class="product-card-action product-card-action-2">
+                                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                                     <button type="submit" class="addtocart-btn btn-primary" name="form_add_to_cart">
                                                         ADD TO CART
                                                     </button>

@@ -13,7 +13,8 @@ if (isset($_POST['form_plus'])) {
     try {
 
         $statement = $pdo->prepare("SELECT * FROM products WHERE id=?");
-        $statement->execute($_POST['id']);
+
+        $statement->execute([$_POST['id']]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         $key = array_search($_POST['id'], $_SESSION['product_id']);

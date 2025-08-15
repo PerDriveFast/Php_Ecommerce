@@ -245,11 +245,11 @@ if (isset($_POST['form_add_to_cart'])) {
                     ?>
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="article-card bg-transparent p-0 shadow-none">
-                                <a class="article-card-img-wrapper" href="post.php">
+                                <a class="article-card-img-wrapper" href="<?php echo BASE_URL; ?>shop.php?name=&category=<?php echo $row['id']; ?>&availability=&min_price=&max_price=">
                                     <img src="<?php echo BASE_URL; ?>uploads/<?php echo $row['photo'] ?>" alt="" class="article-card-img rounded">
                                 </a>
                                 <h2 class="article-card-heading heading_18 text-center">
-                                    <a class="heading_18" href="shop.php">
+                                    <a class="heading_18" href="<?php echo BASE_URL; ?>shop.php?name=&category=<?php echo $row['id']; ?>&availability=&min_price=&max_price=">
                                         <?php echo $row['name'] ?>
                                     </a>
                                 </h2>
